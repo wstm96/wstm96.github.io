@@ -4,15 +4,15 @@
     <title>搭建个人博客</title>
     <url>/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<blockquote>
-<p>引言:<br>搭建一个个人博客：需要服务器，域名，网页，主题等等。</p>
+<p>引言:<br>本文为Hexo+Next+Github搭建个人博客。<br>    服务器和域名问题直接由github解决<br>    Hexo简单好用，同类产品还有其他选择，可以自行选择。<br>    Next主题也已经比较成熟，可以直接上手，外观简约明了。</p>
 <ul>
-<li>此次流程记录基于mac实现</li>
+<li>此次流程记录基于mac实现，实现博客方式千千万，实现适合自己的才是最好的。</li>
 </ul>
 </blockquote>
 <h1 id="流程概览"><a href="#流程概览" class="headerlink" title="流程概览"></a>流程概览</h1><ol>
-<li>配置环境&amp;&amp;下载hexo</li>
-<li>配置Next主题</li>
-<li>实现Github建站访问</li>
+<li>配置环境&amp;&amp;下载Hexo</li>
+<li>安装Hexo和Next主题</li>
+<li>实现Next主题自定义配置</li>
 </ol>
 <span id="more"></span>
 
@@ -30,7 +30,7 @@
 <p>注意：</p>
 <ol>
 <li>使用hexo可能会有网络问题，可以科学上网解决</li>
-<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#46;&#x30;&#x2e;&#x30;">&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#46;&#x30;&#x2e;&#x30;</a>和<a href="mailto:&#x68;&#x65;&#120;&#111;&#64;&#x36;&#x2e;&#x33;&#46;&#x30;">&#x68;&#x65;&#120;&#111;&#64;&#x36;&#x2e;&#x33;&#46;&#x30;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
+<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#104;&#101;&#120;&#x6f;&#x40;&#55;&#x2e;&#48;&#x2e;&#x30;">&#104;&#101;&#120;&#x6f;&#x40;&#55;&#x2e;&#48;&#x2e;&#x30;</a>和<a href="mailto:&#x68;&#101;&#x78;&#x6f;&#x40;&#54;&#x2e;&#x33;&#x2e;&#x30;">&#x68;&#101;&#x78;&#x6f;&#x40;&#54;&#x2e;&#x33;&#x2e;&#x30;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
 </ol>
 </blockquote>
 <h2 id="Next主题安装"><a href="#Next主题安装" class="headerlink" title="Next主题安装"></a>Next主题安装</h2><blockquote>
@@ -104,14 +104,29 @@ Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-sett
 <ol>
 <li>确保md文件中的图片使用markdown标准语法，即[name](link)</li>
 <li>修改配置，将配置文件中post_asset_folder的false改为true</li>
-<li>安装插件，执行<code>npm install https://github.com/CodeFalling/hexo-asset-image --save </code></li>
+<li>安装插件，执行<code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code></li>
 <li>若md文件引用的链接是本地路径，则新建一个文件夹，<strong>命名跟md文件一样的名字</strong>。(若名字不一样是无法识别的，解析后的html文件看到路径是一串不明所以的字符串)</li>
 <li>保证引用的图片在这个文件里就可以。(由于我用的obsidian，所以此处很好操作。也有看到用csdn生成可以访问的外网链接方式)</li>
 </ol>
-<p>比如这种，文件夹名字必须跟文件名保持一致，这是基于插件实现的功能。<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113215306.png"></p>
+<p>比如这种，文件夹名字必须跟文件名保持一致，这是基于插件实现的功能。<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113220101.png"></p>
 <blockquote>
 <p>还有看到hexo-easy-images这个插件，但是貌似有兼容性问题，不妨可以试试。<a href="https://github.com/boboidream/hexo-easy-images">地址</a></p>
 </blockquote>
+<h1 id="实现Github上部署"><a href="#实现Github上部署" class="headerlink" title="实现Github上部署"></a>实现Github上部署</h1><ul>
+<li>Gitee上类似，不过多一个认证过程。</li>
+</ul>
+<ol>
+<li>新建github仓库。注意仓库名称：限制了后缀。比如：zhangsan.github.io，注意设置为public，要不然后面无法访问。</li>
+<li>安装hexo插件：<code>npm install hexo-deployer-git --save</code></li>
+<li>配置github的ssh公私钥访问。(这个应该不用赘述了吧，不会的话去网上搜下吧～)</li>
+<li>修改配置文件的deploy属性<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">	repo: #仓库地址，ssh方式则需要改成ssh的，http方式会更麻烦</span><br><span class="line">	branch: master</span><br></pre></td></tr></table></figure></li>
+<li>执行指令 <code>hexo d</code>即可</li>
+<li>至此配置完成<ol>
+<li>仓库地址为<a href="https://github.com/zhangsan/zhangsan.github.io/">https://github.com/zhangsan/zhangsan.github.io/</a></li>
+<li>直接访问<a href="https://zhangsan.github.io/%E5%8D%B3%E5%8F%AF%E8%B7%9F%E6%9C%AC%E5%9C%B0%E7%9C%8B%E5%88%B0%E7%9A%84%E9%A1%B5%E9%9D%A2%E4%B8%80%E6%A0%B7">https://zhangsan.github.io/即可跟本地看到的页面一样</a><br>如果访问不到则去仓库setting下面的pages选项，查看一下是否有问题，分支正常且设置为public访问的话是有Visit site按钮可以直达的。</li>
+</ol>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>Personal</category>
