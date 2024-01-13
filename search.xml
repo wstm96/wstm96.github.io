@@ -1,21 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2024/01/12/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>搭建个人博客</title>
+    <url>/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<blockquote>
+<p>引言:<br>搭建一个个人博客：需要服务器，域名，网页，主题等等。</p>
+<ul>
+<li>此次流程记录基于mac实现</li>
+</ul>
+</blockquote>
+<h1 id="流程概览"><a href="#流程概览" class="headerlink" title="流程概览"></a>流程概览</h1><ol>
+<li>配置环境&amp;&amp;下载hexo</li>
+<li>配置Next主题</li>
+<li>实现Github建站访问</li>
+</ol>
+<span id="more"></span>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h1 id="环境配置-下载Hexo"><a href="#环境配置-下载Hexo" class="headerlink" title="环境配置&amp;&amp;下载Hexo"></a>环境配置&amp;&amp;下载Hexo</h1><p>前置：homebrew (环境搭建方法千千万，可自行解决，此处仅过一遍流程)</p>
+<h2 id="Node环境"><a href="#Node环境" class="headerlink" title="Node环境"></a>Node环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install node <span class="comment"># node版本有很多兼容性问题，但是hexo建议是最新的，所有此处下载最新的版本:node@21</span></span><br></pre></td></tr></table></figure>
+<h2 id="Git环境"><a href="#Git环境" class="headerlink" title="Git环境"></a>Git环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install git</span><br></pre></td></tr></table></figure>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>推荐参考<a href="https://hexo.io/docs/index.html">官网</a></p>
+<h1 id="安装Hexo和Next主题"><a href="#安装Hexo和Next主题" class="headerlink" title="安装Hexo和Next主题"></a>安装Hexo和Next主题</h1><h2 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h2><ul>
+<li>我们需要将博客放置于一个文件夹下，并用hexo初始化<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cd ~ 进入目录</span></span><br><span class="line"><span class="comment"># 初始化文件夹，此时myblog会自动新建</span></span><br><span class="line">hexo init myblog</span><br><span class="line"><span class="comment">#建议进去看一下hexo版本，方便后续配置</span></span><br><span class="line"><span class="built_in">cd</span> myblog</span><br><span class="line">npm list --depth=0 <span class="comment"># 此处npm高版本会默认自带 --depth=0</span></span><br></pre></td></tr></table></figure></li>
+<li>初始化后的文件结构<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png"></li>
+<li>npm list查看依赖版本(此处主要看hexo版本，有些包可能是后面安装的)<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181523.png"></li>
+</ul>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>使用hexo可能会有网络问题，可以科学上网解决</li>
+<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#46;&#x30;&#x2e;&#x30;">&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#46;&#x30;&#x2e;&#x30;</a>和<a href="mailto:&#x68;&#x65;&#120;&#111;&#64;&#x36;&#x2e;&#x33;&#46;&#x30;">&#x68;&#x65;&#120;&#111;&#64;&#x36;&#x2e;&#x33;&#46;&#x30;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
+</ol>
+</blockquote>
+<h2 id="Next主题安装"><a href="#Next主题安装" class="headerlink" title="Next主题安装"></a>Next主题安装</h2><blockquote>
+<p>主题在Hexo官网可以找到很多，选择适合自己的就好。推荐:shoke，shokeX，3-hexo</p>
+</blockquote>
+<p>详细完整的Next主题配置可以参考Next<a href="https://theme-next.js.org/docs/getting-started/">官网</a>，此处仅涉及个人配置流程。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#cd myblog</span></span><br><span class="line"><span class="comment">#复制主题到themes目录下</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<p>此时修改配置文件<code>_config.yml</code> 中的theme，将landspace改为next，然后执行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#建议设置自定义快捷键</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;alias hexos=&quot;hexo clean &amp;&amp; hexo g &amp;&amp; hexo s&quot;&#x27;</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动hexo</span></span><br><span class="line"><span class="comment"># hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span></span><br><span class="line">hexos</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>看下以下界面则Hexo主题配置成功～<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113183058.png"></p>
+<h1 id="Next的自定义配置"><a href="#Next的自定义配置" class="headerlink" title="Next的自定义配置"></a>Next的自定义配置</h1><h2 id="配置文件确认"><a href="#配置文件确认" class="headerlink" title="配置文件确认"></a>配置文件确认</h2><p>根据官网推荐，我们需要两个配置文件。</p>
+<ol>
+<li>主配置文件，即根目录下的<code>_config.yml</code></li>
+<li>自定义的Next配置文件，执行<code>cp themes/next/_config.yml _config.next.yml</code></li>
+</ol>
+<blockquote>
+<ul>
+<li>此时主配置主要会影响整个界面的设置，Next配置文件则主要影响Next主题的设置，当然两者也有些需要同步影响的设置。</li>
+<li>Hexo配置和Next配置非常多，建议自己对照官网一点点改，实现自定义的界面配置。此处仅介绍几个使用比较重要的配置，当然实现了这几个配置在使用上是没什么问题的。</li>
+</ul>
+</blockquote>
+<h2 id="实现分类和标签功能"><a href="#实现分类和标签功能" class="headerlink" title="实现分类和标签功能"></a>实现分类和标签功能</h2><h3 id="功能实现前"><a href="#功能实现前" class="headerlink" title="功能实现前"></a>功能实现前</h3><ol>
+<li><p>在_post文件下新建一个md文件，比如：<br>其中的front-matter为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Personal</span><br><span class="line">create_date: &#x27;2024-01-10 17:38:57&#x27;</span><br><span class="line">title: 搭建个人博客</span><br><span class="line">update_date: &#x27;2024-01-12 16:58:30&#x27;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行hexos后能在页面上的归档栏能找到对应位置。(注意开启Next配置中的menu的对应分类)<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113190549.png"></p>
+</li>
+<li><p>但是通过分类标签是找不到对应文件的。</p>
+<ul>
+<li>即_post下的所有文件都会被自动归档。但暂时无法根据categories分类</li>
+</ul>
+</li>
+</ol>
+<p><strong>所以我们要实现的就是，根据md文件的categories实现文档的自动分类(标签类似)。</strong></p>
+<h3 id="实现分类、标签、关于页"><a href="#实现分类、标签、关于页" class="headerlink" title="实现分类、标签、关于页"></a>实现分类、标签、关于页</h3><ol>
+<li>新建分类页<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#生成分类</span></span><br><span class="line">hexo new page categories</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成标签</span></span><br><span class="line">hexo new page tags</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成关于</span></span><br><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
+此时会在在source文件夹下生成categories文件夹及categories&#x2F;index.md</li>
+<li>手动修改index.md文件<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">title: categories</span><br><span class="line">date: 2024-01-10 17:38:57</span><br><span class="line">type: &quot;categories&quot; # 标签的话改为&quot;tags&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+此index.md即在menu处点击’分类’,跳转到的页面。(about则在此md文件修改内容即可)<br>需要添加的就是type字段(tag跟categories一样，变更此字段即可)</li>
+<li>给md文件增加front-matter的categories，tags属性就可以自动分类了</li>
+</ol>
+<h1 id="实现搜索功能"><a href="#实现搜索功能" class="headerlink" title="实现搜索功能"></a>实现搜索功能</h1><ul>
+<li>在menu处添加搜索更能</li>
+</ul>
+<ol>
+<li><p>下载插件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件</p>
+<ul>
+<li>找到_config.next.yml的local_search属性，enable改为true即可</li>
+<li>主配置文件中添加：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line"># hexo-generator-searchdb</span><br><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>重新构建即可。</p>
+<h1 id="实现字数统计"><a href="#实现字数统计" class="headerlink" title="实现字数统计"></a>实现字数统计</h1><ul>
+<li>需要额外下载插件</li>
+</ul>
+<ol>
+<li>执行<code>npm install hexo-word-counter</code></li>
+<li>修改Next配置<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">symbols_count_time:</span><br><span class="line">  symbols: true</span><br><span class="line">  time: true</span><br><span class="line">  total_symbols: true</span><br><span class="line">  total_time: true</span><br><span class="line">  symbols_count_time:</span><br><span class="line">    awl: 4</span><br><span class="line">    wpm: 275</span><br><span class="line">  separated_meta: false</span><br><span class="line">  item_text_total: true</span><br></pre></td></tr></table></figure>
+Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-settings/posts.html?highlight=counter">详细说明</a>。</li>
+</ol>
+<h1 id="实现图片链接"><a href="#实现图片链接" class="headerlink" title="实现图片链接"></a>实现图片链接</h1><ul>
+<li>hexo实际是将md文件转换为html，因此图片路径不做处理会失效。此处提供一个解决方案。</li>
+</ul>
+<ol>
+<li>确保md文件中的图片使用markdown标准语法，即[name](link)</li>
+<li>修改配置，将配置文件中post_asset_folder的false改为true</li>
+<li>安装插件，执行<code>npm install https://github.com/CodeFalling/hexo-asset-image --save </code></li>
+<li>若md文件引用的链接是本地路径，则新建一个文件夹，<strong>命名跟md文件一样的名字</strong>。(若名字不一样是无法识别的，解析后的html文件看到路径是一串不明所以的字符串)</li>
+<li>保证引用的图片在这个文件里就可以。(由于我用的obsidian，所以此处很好操作。也有看到用csdn生成可以访问的外网链接方式)</li>
+</ol>
+<p>比如这种，文件夹名字必须跟文件名保持一致，这是基于插件实现的功能。<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113215306.png"></p>
+<blockquote>
+<p>还有看到hexo-easy-images这个插件，但是貌似有兼容性问题，不妨可以试试。<a href="https://github.com/boboidream/hexo-easy-images">地址</a></p>
+</blockquote>
 ]]></content>
+      <categories>
+        <category>Personal</category>
+      </categories>
   </entry>
 </search>
