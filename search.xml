@@ -13,6 +13,7 @@
 <li>配置环境&amp;&amp;下载Hexo</li>
 <li>安装Hexo和Next主题</li>
 <li>实现Next主题自定义配置</li>
+<li>功能补充</li>
 </ol>
 <span id="more"></span>
 
@@ -30,7 +31,7 @@
 <p>注意：</p>
 <ol>
 <li>使用hexo可能会有网络问题，可以科学上网解决</li>
-<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#104;&#101;&#120;&#x6f;&#x40;&#55;&#x2e;&#48;&#x2e;&#x30;">&#104;&#101;&#120;&#x6f;&#x40;&#55;&#x2e;&#48;&#x2e;&#x30;</a>和<a href="mailto:&#x68;&#101;&#x78;&#x6f;&#x40;&#54;&#x2e;&#x33;&#x2e;&#x30;">&#x68;&#101;&#x78;&#x6f;&#x40;&#54;&#x2e;&#x33;&#x2e;&#x30;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
+<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#104;&#101;&#x78;&#x6f;&#64;&#x37;&#46;&#x30;&#x2e;&#x30;">&#104;&#101;&#x78;&#x6f;&#64;&#x37;&#46;&#x30;&#x2e;&#x30;</a>和<a href="mailto:&#x68;&#x65;&#120;&#x6f;&#64;&#54;&#46;&#x33;&#x2e;&#48;">&#x68;&#x65;&#120;&#x6f;&#64;&#54;&#46;&#x33;&#x2e;&#48;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
 </ol>
 </blockquote>
 <h2 id="Next主题安装"><a href="#Next主题安装" class="headerlink" title="Next主题安装"></a>Next主题安装</h2><blockquote>
@@ -127,7 +128,8 @@ Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-sett
 </ol>
 </li>
 </ol>
-]]></content>
+<h1 id="功能补充"><a href="#功能补充" class="headerlink" title="功能补充"></a>功能补充</h1><!--more-->标签，会让标签上面的内容显示在首页展示。避免首页展示所有内容。
+<h1 id="笔记批量增加front-matter"><a href="#笔记批量增加front-matter" class="headerlink" title="笔记批量增加front-matter"></a>笔记批量增加front-matter</h1>]]></content>
       <categories>
         <category>Personal</category>
       </categories>
