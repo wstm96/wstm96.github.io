@@ -19,30 +19,30 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":400},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="引言:本文为Hexo+Next+Github搭建个人博客。    服务器和域名问题直接由github解决    Hexo简单好用，同类产品还有其他选择，可以自行选择。    Next主题也已经比较成熟，可以直接上手，外观简约明了。  此次流程记录基于mac实现，实现博客方式千千万，实现适合自己的才是最好的。   流程概览 配置环境&amp;&amp;下载Hexo 安装Hexo和Next主题 实现">
+    <meta name="description" content="引言:本文为Hexo+Next+Github搭建个人博客。    服务器和域名问题直接由github解决    Hexo简单好用，同类产品还有其他选择，可以自行选择。    Next主题也已经比较成熟，可以直接上手，外观简约明了。  此次流程记录基于mac实现，实现博客方式千千万，实现适合自己的才是最好的。">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="搭建个人博客">
-<meta property="og:url" content="http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:url" content="http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="My Own Blog">
-<meta property="og:description" content="引言:本文为Hexo+Next+Github搭建个人博客。    服务器和域名问题直接由github解决    Hexo简单好用，同类产品还有其他选择，可以自行选择。    Next主题也已经比较成熟，可以直接上手，外观简约明了。  此次流程记录基于mac实现，实现博客方式千千万，实现适合自己的才是最好的。   流程概览 配置环境&amp;&amp;下载Hexo 安装Hexo和Next主题 实现">
+<meta property="og:description" content="引言:本文为Hexo+Next+Github搭建个人博客。    服务器和域名问题直接由github解决    Hexo简单好用，同类产品还有其他选择，可以自行选择。    Next主题也已经比较成熟，可以直接上手，外观简约明了。  此次流程记录基于mac实现，实现博客方式千千万，实现适合自己的才是最好的。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png">
-<meta property="og:image" content="http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181523.png">
-<meta property="og:image" content="http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113183058.png">
-<meta property="og:image" content="http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113190549.png">
-<meta property="og:image" content="http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113220101.png">
-<meta property="article:published_time" content="2024-01-10T09:38:57.112Z">
-<meta property="article:modified_time" content="2024-01-13T14:41:38.986Z">
+<meta property="og:image" content="http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png">
+<meta property="og:image" content="http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181523.png">
+<meta property="og:image" content="http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113183058.png">
+<meta property="og:image" content="http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113190549.png">
+<meta property="og:image" content="http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113220101.png">
+<meta property="article:published_time" content="2024-01-15T07:52:42.000Z">
+<meta property="article:modified_time" content="2024-01-15T07:52:42.000Z">
 <meta property="article:author" content="Mou Tian">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png">
+<meta name="twitter:image" content="http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png">
 
 
-<link rel="canonical" href="http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+<link rel="canonical" href="http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/","path":"2024/01/10/Personal/搭建个人博客/","title":"搭建个人博客"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/","path":"2024/01/15/Personal/搭建个人博客/","title":"搭建个人博客"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>搭建个人博客 | My Own Blog</title>
@@ -94,7 +94,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">1</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">0</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -145,14 +145,14 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%A6%82%E8%A7%88"><span class="nav-text">流程概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-%E4%B8%8B%E8%BD%BDHexo"><span class="nav-text">环境配置&amp;&amp;下载Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node%E7%8E%AF%E5%A2%83"><span class="nav-text">Node环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E7%8E%AF%E5%A2%83"><span class="nav-text">Git环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo"><span class="nav-text">Hexo</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Hexo%E5%92%8CNext%E4%B8%BB%E9%A2%98"><span class="nav-text">安装Hexo和Next主题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96Hexo"><span class="nav-text">初始化Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Next%E4%B8%BB%E9%A2%98%E5%AE%89%E8%A3%85"><span class="nav-text">Next主题安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Next%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE"><span class="nav-text">Next的自定义配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%A1%AE%E8%AE%A4"><span class="nav-text">配置文件确认</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE%E5%8A%9F%E8%83%BD"><span class="nav-text">实现分类和标签功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E5%89%8D"><span class="nav-text">功能实现前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%88%86%E7%B1%BB%E3%80%81%E6%A0%87%E7%AD%BE%E3%80%81%E5%85%B3%E4%BA%8E%E9%A1%B5"><span class="nav-text">实现分类、标签、关于页</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD"><span class="nav-text">实现搜索功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-text">实现字数统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E9%93%BE%E6%8E%A5"><span class="nav-text">实现图片链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0Github%E4%B8%8A%E9%83%A8%E7%BD%B2"><span class="nav-text">实现Github上部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E8%A1%A5%E5%85%85"><span class="nav-text">功能补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%94%E8%AE%B0%E6%89%B9%E9%87%8F%E5%A2%9E%E5%8A%A0front-matter"><span class="nav-text">笔记批量增加front-matter</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%A6%82%E8%A7%88"><span class="nav-text">流程概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-%E4%B8%8B%E8%BD%BDHexo"><span class="nav-text">环境配置&amp;&amp;下载Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node%E7%8E%AF%E5%A2%83"><span class="nav-text">Node环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E7%8E%AF%E5%A2%83"><span class="nav-text">Git环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo"><span class="nav-text">Hexo</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Hexo%E5%92%8CNext%E4%B8%BB%E9%A2%98"><span class="nav-text">安装Hexo和Next主题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96Hexo"><span class="nav-text">初始化Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Next%E4%B8%BB%E9%A2%98%E5%AE%89%E8%A3%85"><span class="nav-text">Next主题安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Next%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE"><span class="nav-text">Next的自定义配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%A1%AE%E8%AE%A4"><span class="nav-text">配置文件确认</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE%E5%8A%9F%E8%83%BD"><span class="nav-text">实现分类和标签功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E5%89%8D"><span class="nav-text">功能实现前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%88%86%E7%B1%BB%E3%80%81%E6%A0%87%E7%AD%BE%E3%80%81%E5%85%B3%E4%BA%8E%E9%A1%B5"><span class="nav-text">实现分类、标签、关于页</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD"><span class="nav-text">实现搜索功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-text">实现字数统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E9%93%BE%E6%8E%A5"><span class="nav-text">实现图片链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0Github%E4%B8%8A%E9%83%A8%E7%BD%B2"><span class="nav-text">实现Github上部署</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E8%A1%A5%E5%85%85"><span class="nav-text">功能补充</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%94%E8%AE%B0%E6%89%B9%E9%87%8F%E5%A2%9E%E5%8A%A0front-matter"><span class="nav-text">笔记批量增加front-matter</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Mou Tian"
-      src="/images/avatar.gif">
+      src="/images/avatar.png">
   <p class="site-author-name" itemprop="name">Mou Tian</p>
   <div class="site-description" itemprop="description">description</div>
 </div>
@@ -160,14 +160,19 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -194,6 +199,9 @@
             <li class="links-of-blogroll-item">
               <a href="https://www.baidu.com/" title="https:&#x2F;&#x2F;www.baidu.com" rel="noopener" target="_blank">Baidu</a>
             </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://theme-next.js.org/docs/getting-started/" title="https:&#x2F;&#x2F;theme-next.js.org&#x2F;docs&#x2F;getting-started&#x2F;" rel="noopener" target="_blank">Next主题配置</a>
+            </li>
         </ul>
       </div>
     </div>
@@ -213,10 +221,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
       <meta itemprop="name" content="Mou Tian">
     </span>
 
@@ -242,14 +250,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2024-01-10 17:38:57" itemprop="dateCreated datePublished" datetime="2024-01-10T17:38:57+08:00">2024-01-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-01-13 22:41:38" itemprop="dateModified" datetime="2024-01-13T22:41:38+08:00">2024-01-13</time>
+      <time title="创建时间：2024-01-15 15:52:42" itemprop="dateCreated datePublished" datetime="2024-01-15T15:52:42+08:00">2024-01-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -267,14 +268,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span>8 分钟</span>
     </span>
 </div>
 
@@ -290,14 +291,14 @@
 <li>此次流程记录基于mac实现，实现博客方式千千万，实现适合自己的才是最好的。</li>
 </ul>
 </blockquote>
+<span id="more"></span>
 <h1 id="流程概览"><a href="#流程概览" class="headerlink" title="流程概览"></a>流程概览</h1><ol>
 <li>配置环境&amp;&amp;下载Hexo</li>
 <li>安装Hexo和Next主题</li>
 <li>实现Next主题自定义配置</li>
 <li>功能补充</li>
 </ol>
-<span id="more"></span>
-
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45019350/article/details/121901433?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522170485475516800213023576%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=170485475516800213023576&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-121901433-null-null.142%5Ev99%5Econtrol&utm_term=hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&spm=1018.2226.3001.4187">Hexo-零基础搭建个人博客</a></p>
 <h1 id="环境配置-下载Hexo"><a href="#环境配置-下载Hexo" class="headerlink" title="环境配置&amp;&amp;下载Hexo"></a>环境配置&amp;&amp;下载Hexo</h1><p>前置：homebrew (环境搭建方法千千万，可自行解决，此处仅过一遍流程)</p>
 <h2 id="Node环境"><a href="#Node环境" class="headerlink" title="Node环境"></a>Node环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install node <span class="comment"># node版本有很多兼容性问题，但是hexo建议是最新的，所有此处下载最新的版本:node@21</span></span><br></pre></td></tr></table></figure>
 <h2 id="Git环境"><a href="#Git环境" class="headerlink" title="Git环境"></a>Git环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install git</span><br></pre></td></tr></table></figure>
@@ -305,14 +306,14 @@
 <p>推荐参考<a target="_blank" rel="noopener" href="https://hexo.io/docs/index.html">官网</a></p>
 <h1 id="安装Hexo和Next主题"><a href="#安装Hexo和Next主题" class="headerlink" title="安装Hexo和Next主题"></a>安装Hexo和Next主题</h1><h2 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h2><ul>
 <li>我们需要将博客放置于一个文件夹下，并用hexo初始化<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd ~ 进入目录</span></span><br><span class="line"><span class="comment"># 初始化文件夹，此时myblog会自动新建</span></span><br><span class="line">hexo init myblog</span><br><span class="line"><span class="comment">#建议进去看一下hexo版本，方便后续配置</span></span><br><span class="line"><span class="built_in">cd</span> myblog</span><br><span class="line">npm list --depth=0 <span class="comment"># 此处npm高版本会默认自带 --depth=0</span></span><br></pre></td></tr></table></figure></li>
-<li>初始化后的文件结构<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png"></li>
-<li>npm list查看依赖版本(此处主要看hexo版本，有些包可能是后面安装的)<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181523.png"></li>
+<li>初始化后的文件结构<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png"></li>
+<li>npm list查看依赖版本(此处主要看hexo版本，有些包可能是后面安装的)<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181523.png"></li>
 </ul>
 <blockquote>
 <p>注意：</p>
 <ol>
 <li>使用hexo可能会有网络问题，可以科学上网解决</li>
-<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#104;&#101;&#x78;&#x6f;&#64;&#x37;&#46;&#x30;&#x2e;&#x30;">&#104;&#101;&#x78;&#x6f;&#64;&#x37;&#46;&#x30;&#x2e;&#x30;</a>和<a href="mailto:&#x68;&#x65;&#120;&#x6f;&#64;&#54;&#46;&#x33;&#x2e;&#48;">&#x68;&#x65;&#120;&#x6f;&#64;&#54;&#46;&#x33;&#x2e;&#48;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
+<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#x2e;&#48;&#46;&#x30;">&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#x2e;&#48;&#46;&#x30;</a>和<a href="mailto:&#x68;&#101;&#x78;&#111;&#x40;&#x36;&#46;&#x33;&#46;&#x30;">&#x68;&#101;&#x78;&#111;&#x40;&#x36;&#46;&#x33;&#46;&#x30;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
 </ol>
 </blockquote>
 <h2 id="Next主题安装"><a href="#Next主题安装" class="headerlink" title="Next主题安装"></a>Next主题安装</h2><blockquote>
@@ -323,7 +324,7 @@
 <p>此时修改配置文件<code>_config.yml</code> 中的theme，将landspace改为next，然后执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#建议设置自定义快捷键</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;alias hexos=&quot;hexo clean &amp;&amp; hexo g &amp;&amp; hexo s&quot;&#x27;</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动hexo</span></span><br><span class="line"><span class="comment"># hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span></span><br><span class="line">hexos</span><br></pre></td></tr></table></figure>
 
-<p>看下以下界面则Hexo主题配置成功～<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113183058.png"></p>
+<p>看下以下界面则Hexo主题配置成功～<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113183058.png"></p>
 <h1 id="Next的自定义配置"><a href="#Next的自定义配置" class="headerlink" title="Next的自定义配置"></a>Next的自定义配置</h1><h2 id="配置文件确认"><a href="#配置文件确认" class="headerlink" title="配置文件确认"></a>配置文件确认</h2><p>根据官网推荐，我们需要两个配置文件。</p>
 <ol>
 <li>主配置文件，即根目录下的<code>_config.yml</code></li>
@@ -339,7 +340,7 @@
 <li><p>在_post文件下新建一个md文件，比如：<br>其中的front-matter为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Personal</span><br><span class="line">create_date: &#x27;2024-01-10 17:38:57&#x27;</span><br><span class="line">title: 搭建个人博客</span><br><span class="line">update_date: &#x27;2024-01-12 16:58:30&#x27;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>执行hexos后能在页面上的归档栏能找到对应位置。(注意开启Next配置中的menu的对应分类)<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113190549.png"></p>
+<li><p>执行hexos后能在页面上的归档栏能找到对应位置。(注意开启Next配置中的menu的对应分类)<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113190549.png"></p>
 </li>
 <li><p>但是通过分类标签是找不到对应文件的。</p>
 <ul>
@@ -355,7 +356,7 @@
 此index.md即在menu处点击’分类’,跳转到的页面。(about则在此md文件修改内容即可)<br>需要添加的就是type字段(tag跟categories一样，变更此字段即可)</li>
 <li>给md文件增加front-matter的categories，tags属性就可以自动分类了</li>
 </ol>
-<h1 id="实现搜索功能"><a href="#实现搜索功能" class="headerlink" title="实现搜索功能"></a>实现搜索功能</h1><ul>
+<h2 id="实现搜索功能"><a href="#实现搜索功能" class="headerlink" title="实现搜索功能"></a>实现搜索功能</h2><ul>
 <li>在menu处添加搜索更能</li>
 </ul>
 <ol>
@@ -372,7 +373,7 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># hexo-generator-searchdb</span><br><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10</span><br></pre></td></tr></table></figure>
 
 <p>重新构建即可。</p>
-<h1 id="实现字数统计"><a href="#实现字数统计" class="headerlink" title="实现字数统计"></a>实现字数统计</h1><ul>
+<h2 id="实现字数统计"><a href="#实现字数统计" class="headerlink" title="实现字数统计"></a>实现字数统计</h2><ul>
 <li>需要额外下载插件</li>
 </ul>
 <ol>
@@ -380,7 +381,7 @@
 <li>修改Next配置<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">symbols_count_time:</span><br><span class="line">  symbols: true</span><br><span class="line">  time: true</span><br><span class="line">  total_symbols: true</span><br><span class="line">  total_time: true</span><br><span class="line">  symbols_count_time:</span><br><span class="line">    awl: 4</span><br><span class="line">    wpm: 275</span><br><span class="line">  separated_meta: false</span><br><span class="line">  item_text_total: true</span><br></pre></td></tr></table></figure>
 Next官网的PostSetting处有<a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/theme-settings/posts.html?highlight=counter">详细说明</a>。</li>
 </ol>
-<h1 id="实现图片链接"><a href="#实现图片链接" class="headerlink" title="实现图片链接"></a>实现图片链接</h1><ul>
+<h2 id="实现图片链接"><a href="#实现图片链接" class="headerlink" title="实现图片链接"></a>实现图片链接</h2><ul>
 <li>hexo实际是将md文件转换为html，因此图片路径不做处理会失效。此处提供一个解决方案。</li>
 </ul>
 <ol>
@@ -390,11 +391,11 @@ Next官网的PostSetting处有<a target="_blank" rel="noopener" href="https://th
 <li>若md文件引用的链接是本地路径，则新建一个文件夹，<strong>命名跟md文件一样的名字</strong>。(若名字不一样是无法识别的，解析后的html文件看到路径是一串不明所以的字符串)</li>
 <li>保证引用的图片在这个文件里就可以。(由于我用的obsidian，所以此处很好操作。也有看到用csdn生成可以访问的外网链接方式)</li>
 </ol>
-<p>比如这种，文件夹名字必须跟文件名保持一致，这是基于插件实现的功能。<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113220101.png"></p>
+<p>比如这种，文件夹名字必须跟文件名保持一致，这是基于插件实现的功能。<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113220101.png"></p>
 <blockquote>
 <p>还有看到hexo-easy-images这个插件，但是貌似有兼容性问题，不妨可以试试。<a target="_blank" rel="noopener" href="https://github.com/boboidream/hexo-easy-images">地址</a></p>
 </blockquote>
-<h1 id="实现Github上部署"><a href="#实现Github上部署" class="headerlink" title="实现Github上部署"></a>实现Github上部署</h1><ul>
+<h2 id="实现Github上部署"><a href="#实现Github上部署" class="headerlink" title="实现Github上部署"></a>实现Github上部署</h2><ul>
 <li>Gitee上类似，不过多一个认证过程。</li>
 </ul>
 <ol>
@@ -410,7 +411,14 @@ Next官网的PostSetting处有<a target="_blank" rel="noopener" href="https://th
 </li>
 </ol>
 <h1 id="功能补充"><a href="#功能补充" class="headerlink" title="功能补充"></a>功能补充</h1><!--more-->标签，会让标签上面的内容显示在首页展示。避免首页展示所有内容。
-<h1 id="笔记批量增加front-matter"><a href="#笔记批量增加front-matter" class="headerlink" title="笔记批量增加front-matter"></a>笔记批量增加front-matter</h1>
+<h2 id="笔记批量增加front-matter"><a href="#笔记批量增加front-matter" class="headerlink" title="笔记批量增加front-matter"></a>笔记批量增加front-matter</h2><ul>
+<li>文件有很多，但是批量修改或者添加时很麻烦，因此这里选择用python来批量处理。</li>
+</ul>
+<ol>
+<li>需要下载依赖<code>pip install python-frontmatter</code></li>
+<li>执行脚本<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 批量为md文件生成front matter  </span></span><br><span class="line"><span class="keyword">import</span> os  </span><br><span class="line"><span class="keyword">import</span> frontmatter  </span><br><span class="line"><span class="keyword">import</span> datetime  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 递归获取提供目录下所有文件  </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">list_all_files</span>(<span class="params">root_path, ignore_dirs=[]</span>):  </span><br><span class="line">    files = []  </span><br><span class="line">    default_dirs = [<span class="string">&quot;.git&quot;</span>, <span class="string">&quot;.obsidian&quot;</span>, <span class="string">&quot;.config&quot;</span>]  </span><br><span class="line">    ignore_dirs.extend(default_dirs)  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">for</span> parent, dirs, filenames <span class="keyword">in</span> os.walk(root_path):  </span><br><span class="line">        dirs[:] = [d <span class="keyword">for</span> d <span class="keyword">in</span> dirs <span class="keyword">if</span> <span class="keyword">not</span> d <span class="keyword">in</span> ignore_dirs]  </span><br><span class="line">        filenames = [f <span class="keyword">for</span> f <span class="keyword">in</span> filenames <span class="keyword">if</span> <span class="keyword">not</span> f[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span>]  </span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> filenames:  </span><br><span class="line">            <span class="keyword">if</span> file.endswith(<span class="string">&quot;.md&quot;</span>):  </span><br><span class="line">                files.append(os.path.join(parent, file))  </span><br><span class="line">    <span class="keyword">return</span> files  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 更新md文件的front matter：</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update_front_matter</span>(<span class="params">file,pre</span>):  </span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        <span class="comment"># content = f.read()  </span></span><br><span class="line">        content = f.read()  </span><br><span class="line">    post = frontmatter.loads(content)  </span><br><span class="line">  </span><br><span class="line">    stat = os.stat(file)  </span><br><span class="line">    modification_time = datetime.datetime.fromtimestamp(stat.st_mtime).strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)  </span><br><span class="line">    creation_time = datetime.datetime.fromtimestamp(stat.st_birthtime).strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)  </span><br><span class="line">    title = <span class="built_in">str</span>(file).split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>].split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]  </span><br><span class="line">    <span class="comment"># 设置categories  </span></span><br><span class="line">    categories = []  </span><br><span class="line">    <span class="comment"># 去掉文件名前缀,根据文件夹名称设置分类</span></span><br><span class="line">    path =<span class="built_in">str</span>(os.path.dirname(file))  </span><br><span class="line">    path = path.replace(pre,<span class="string">&#x27;&#x27;</span>).strip()  </span><br><span class="line">    <span class="keyword">for</span> tem <span class="keyword">in</span>  path.split(<span class="string">&quot;/&quot;</span>):  </span><br><span class="line">        categories.append(tem)  </span><br><span class="line">  </span><br><span class="line">    <span class="comment"># 创建 Front Matter    # 生成新的frontmatter，即post.metadata  </span></span><br><span class="line">    post[<span class="string">&#x27;title&#x27;</span>] = title  </span><br><span class="line">    post[<span class="string">&#x27;create_date&#x27;</span>] = creation_time  </span><br><span class="line">    post[<span class="string">&#x27;update_date&#x27;</span>] = modification_time  </span><br><span class="line">    post[<span class="string">&#x27;categories&#x27;</span>] = categories  </span><br><span class="line">    <span class="comment"># 写入  </span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        f.write(frontmatter.dumps(post))  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:  </span><br><span class="line">    <span class="comment"># 替换为实际的文件夹路径和要添加的 Front Matter 数据  </span></span><br><span class="line">    folder_path = <span class="string">&quot;/Users/Documents/notes&quot;</span>  </span><br><span class="line">    pre =<span class="string">&quot;/Users/Documents/&quot;</span>  </span><br><span class="line">    neededFileNameList =  list_all_files(folder_path,[<span class="string">&#x27;attachments&#x27;</span>])  </span><br><span class="line">    <span class="keyword">for</span> filePath <span class="keyword">in</span> neededFileNameList:  </span><br><span class="line">        update_front_matter(filePath,pre)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+
     </div>
 
     
@@ -421,6 +429,15 @@ Next官网的PostSetting处有<a target="_blank" rel="noopener" href="https://th
 
         
 
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/01/15/Tools/Jetbrains%E7%B3%BB%E5%88%97/" rel="prev" title="Jetbrains系列">
+                  <i class="fa fa-angle-left"></i> Jetbrains系列
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -450,14 +467,14 @@ Next官网的PostSetting处有<a target="_blank" rel="noopener" href="https://th
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">2k</span>
+    <span title="站点总字数">8k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6 分钟</span>
+    <span title="站点阅读时长">28 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动

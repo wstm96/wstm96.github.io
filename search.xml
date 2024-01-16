@@ -2,21 +2,21 @@
 <search>
   <entry>
     <title>搭建个人博客</title>
-    <url>/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <url>/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<blockquote>
 <p>引言:<br>本文为Hexo+Next+Github搭建个人博客。<br>    服务器和域名问题直接由github解决<br>    Hexo简单好用，同类产品还有其他选择，可以自行选择。<br>    Next主题也已经比较成熟，可以直接上手，外观简约明了。</p>
 <ul>
 <li>此次流程记录基于mac实现，实现博客方式千千万，实现适合自己的才是最好的。</li>
 </ul>
 </blockquote>
+<span id="more"></span>
 <h1 id="流程概览"><a href="#流程概览" class="headerlink" title="流程概览"></a>流程概览</h1><ol>
 <li>配置环境&amp;&amp;下载Hexo</li>
 <li>安装Hexo和Next主题</li>
 <li>实现Next主题自定义配置</li>
 <li>功能补充</li>
 </ol>
-<span id="more"></span>
-
+<p>参考：<a href="https://blog.csdn.net/weixin_45019350/article/details/121901433?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522170485475516800213023576%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=170485475516800213023576&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-121901433-null-null.142%5Ev99%5Econtrol&utm_term=hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&spm=1018.2226.3001.4187">Hexo-零基础搭建个人博客</a></p>
 <h1 id="环境配置-下载Hexo"><a href="#环境配置-下载Hexo" class="headerlink" title="环境配置&amp;&amp;下载Hexo"></a>环境配置&amp;&amp;下载Hexo</h1><p>前置：homebrew (环境搭建方法千千万，可自行解决，此处仅过一遍流程)</p>
 <h2 id="Node环境"><a href="#Node环境" class="headerlink" title="Node环境"></a>Node环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install node <span class="comment"># node版本有很多兼容性问题，但是hexo建议是最新的，所有此处下载最新的版本:node@21</span></span><br></pre></td></tr></table></figure>
 <h2 id="Git环境"><a href="#Git环境" class="headerlink" title="Git环境"></a>Git环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install git</span><br></pre></td></tr></table></figure>
@@ -24,14 +24,14 @@
 <p>推荐参考<a href="https://hexo.io/docs/index.html">官网</a></p>
 <h1 id="安装Hexo和Next主题"><a href="#安装Hexo和Next主题" class="headerlink" title="安装Hexo和Next主题"></a>安装Hexo和Next主题</h1><h2 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h2><ul>
 <li>我们需要将博客放置于一个文件夹下，并用hexo初始化<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cd ~ 进入目录</span></span><br><span class="line"><span class="comment"># 初始化文件夹，此时myblog会自动新建</span></span><br><span class="line">hexo init myblog</span><br><span class="line"><span class="comment">#建议进去看一下hexo版本，方便后续配置</span></span><br><span class="line"><span class="built_in">cd</span> myblog</span><br><span class="line">npm list --depth=0 <span class="comment"># 此处npm高版本会默认自带 --depth=0</span></span><br></pre></td></tr></table></figure></li>
-<li>初始化后的文件结构<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png"></li>
-<li>npm list查看依赖版本(此处主要看hexo版本，有些包可能是后面安装的)<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181523.png"></li>
+<li>初始化后的文件结构<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png"></li>
+<li>npm list查看依赖版本(此处主要看hexo版本，有些包可能是后面安装的)<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181523.png"></li>
 </ul>
 <blockquote>
 <p>注意：</p>
 <ol>
 <li>使用hexo可能会有网络问题，可以科学上网解决</li>
-<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#104;&#101;&#x78;&#x6f;&#64;&#x37;&#46;&#x30;&#x2e;&#x30;">&#104;&#101;&#x78;&#x6f;&#64;&#x37;&#46;&#x30;&#x2e;&#x30;</a>和<a href="mailto:&#x68;&#x65;&#120;&#x6f;&#64;&#54;&#46;&#x33;&#x2e;&#48;">&#x68;&#x65;&#120;&#x6f;&#64;&#54;&#46;&#x33;&#x2e;&#48;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
+<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#x2e;&#48;&#46;&#x30;">&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#x2e;&#48;&#46;&#x30;</a>和<a href="mailto:&#x68;&#101;&#x78;&#111;&#x40;&#x36;&#46;&#x33;&#46;&#x30;">&#x68;&#101;&#x78;&#111;&#x40;&#x36;&#46;&#x33;&#46;&#x30;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
 </ol>
 </blockquote>
 <h2 id="Next主题安装"><a href="#Next主题安装" class="headerlink" title="Next主题安装"></a>Next主题安装</h2><blockquote>
@@ -42,7 +42,7 @@
 <p>此时修改配置文件<code>_config.yml</code> 中的theme，将landspace改为next，然后执行</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#建议设置自定义快捷键</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;alias hexos=&quot;hexo clean &amp;&amp; hexo g &amp;&amp; hexo s&quot;&#x27;</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动hexo</span></span><br><span class="line"><span class="comment"># hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span></span><br><span class="line">hexos</span><br></pre></td></tr></table></figure>
 
-<p>看下以下界面则Hexo主题配置成功～<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113183058.png"></p>
+<p>看下以下界面则Hexo主题配置成功～<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113183058.png"></p>
 <h1 id="Next的自定义配置"><a href="#Next的自定义配置" class="headerlink" title="Next的自定义配置"></a>Next的自定义配置</h1><h2 id="配置文件确认"><a href="#配置文件确认" class="headerlink" title="配置文件确认"></a>配置文件确认</h2><p>根据官网推荐，我们需要两个配置文件。</p>
 <ol>
 <li>主配置文件，即根目录下的<code>_config.yml</code></li>
@@ -58,7 +58,7 @@
 <li><p>在_post文件下新建一个md文件，比如：<br>其中的front-matter为</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Personal</span><br><span class="line">create_date: &#x27;2024-01-10 17:38:57&#x27;</span><br><span class="line">title: 搭建个人博客</span><br><span class="line">update_date: &#x27;2024-01-12 16:58:30&#x27;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>执行hexos后能在页面上的归档栏能找到对应位置。(注意开启Next配置中的menu的对应分类)<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113190549.png"></p>
+<li><p>执行hexos后能在页面上的归档栏能找到对应位置。(注意开启Next配置中的menu的对应分类)<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113190549.png"></p>
 </li>
 <li><p>但是通过分类标签是找不到对应文件的。</p>
 <ul>
@@ -74,7 +74,7 @@
 此index.md即在menu处点击’分类’,跳转到的页面。(about则在此md文件修改内容即可)<br>需要添加的就是type字段(tag跟categories一样，变更此字段即可)</li>
 <li>给md文件增加front-matter的categories，tags属性就可以自动分类了</li>
 </ol>
-<h1 id="实现搜索功能"><a href="#实现搜索功能" class="headerlink" title="实现搜索功能"></a>实现搜索功能</h1><ul>
+<h2 id="实现搜索功能"><a href="#实现搜索功能" class="headerlink" title="实现搜索功能"></a>实现搜索功能</h2><ul>
 <li>在menu处添加搜索更能</li>
 </ul>
 <ol>
@@ -91,7 +91,7 @@
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line"># hexo-generator-searchdb</span><br><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10</span><br></pre></td></tr></table></figure>
 
 <p>重新构建即可。</p>
-<h1 id="实现字数统计"><a href="#实现字数统计" class="headerlink" title="实现字数统计"></a>实现字数统计</h1><ul>
+<h2 id="实现字数统计"><a href="#实现字数统计" class="headerlink" title="实现字数统计"></a>实现字数统计</h2><ul>
 <li>需要额外下载插件</li>
 </ul>
 <ol>
@@ -99,7 +99,7 @@
 <li>修改Next配置<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">symbols_count_time:</span><br><span class="line">  symbols: true</span><br><span class="line">  time: true</span><br><span class="line">  total_symbols: true</span><br><span class="line">  total_time: true</span><br><span class="line">  symbols_count_time:</span><br><span class="line">    awl: 4</span><br><span class="line">    wpm: 275</span><br><span class="line">  separated_meta: false</span><br><span class="line">  item_text_total: true</span><br></pre></td></tr></table></figure>
 Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-settings/posts.html?highlight=counter">详细说明</a>。</li>
 </ol>
-<h1 id="实现图片链接"><a href="#实现图片链接" class="headerlink" title="实现图片链接"></a>实现图片链接</h1><ul>
+<h2 id="实现图片链接"><a href="#实现图片链接" class="headerlink" title="实现图片链接"></a>实现图片链接</h2><ul>
 <li>hexo实际是将md文件转换为html，因此图片路径不做处理会失效。此处提供一个解决方案。</li>
 </ul>
 <ol>
@@ -109,11 +109,11 @@ Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-sett
 <li>若md文件引用的链接是本地路径，则新建一个文件夹，<strong>命名跟md文件一样的名字</strong>。(若名字不一样是无法识别的，解析后的html文件看到路径是一串不明所以的字符串)</li>
 <li>保证引用的图片在这个文件里就可以。(由于我用的obsidian，所以此处很好操作。也有看到用csdn生成可以访问的外网链接方式)</li>
 </ol>
-<p>比如这种，文件夹名字必须跟文件名保持一致，这是基于插件实现的功能。<br><img src="/2024/01/10/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113220101.png"></p>
+<p>比如这种，文件夹名字必须跟文件名保持一致，这是基于插件实现的功能。<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113220101.png"></p>
 <blockquote>
 <p>还有看到hexo-easy-images这个插件，但是貌似有兼容性问题，不妨可以试试。<a href="https://github.com/boboidream/hexo-easy-images">地址</a></p>
 </blockquote>
-<h1 id="实现Github上部署"><a href="#实现Github上部署" class="headerlink" title="实现Github上部署"></a>实现Github上部署</h1><ul>
+<h2 id="实现Github上部署"><a href="#实现Github上部署" class="headerlink" title="实现Github上部署"></a>实现Github上部署</h2><ul>
 <li>Gitee上类似，不过多一个认证过程。</li>
 </ul>
 <ol>
@@ -129,9 +129,547 @@ Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-sett
 </li>
 </ol>
 <h1 id="功能补充"><a href="#功能补充" class="headerlink" title="功能补充"></a>功能补充</h1><!--more-->标签，会让标签上面的内容显示在首页展示。避免首页展示所有内容。
-<h1 id="笔记批量增加front-matter"><a href="#笔记批量增加front-matter" class="headerlink" title="笔记批量增加front-matter"></a>笔记批量增加front-matter</h1>]]></content>
+<h2 id="笔记批量增加front-matter"><a href="#笔记批量增加front-matter" class="headerlink" title="笔记批量增加front-matter"></a>笔记批量增加front-matter</h2><ul>
+<li>文件有很多，但是批量修改或者添加时很麻烦，因此这里选择用python来批量处理。</li>
+</ul>
+<ol>
+<li>需要下载依赖<code>pip install python-frontmatter</code></li>
+<li>执行脚本<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 批量为md文件生成front matter  </span></span><br><span class="line"><span class="keyword">import</span> os  </span><br><span class="line"><span class="keyword">import</span> frontmatter  </span><br><span class="line"><span class="keyword">import</span> datetime  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 递归获取提供目录下所有文件  </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">list_all_files</span>(<span class="params">root_path, ignore_dirs=[]</span>):  </span><br><span class="line">    files = []  </span><br><span class="line">    default_dirs = [<span class="string">&quot;.git&quot;</span>, <span class="string">&quot;.obsidian&quot;</span>, <span class="string">&quot;.config&quot;</span>]  </span><br><span class="line">    ignore_dirs.extend(default_dirs)  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">for</span> parent, dirs, filenames <span class="keyword">in</span> os.walk(root_path):  </span><br><span class="line">        dirs[:] = [d <span class="keyword">for</span> d <span class="keyword">in</span> dirs <span class="keyword">if</span> <span class="keyword">not</span> d <span class="keyword">in</span> ignore_dirs]  </span><br><span class="line">        filenames = [f <span class="keyword">for</span> f <span class="keyword">in</span> filenames <span class="keyword">if</span> <span class="keyword">not</span> f[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span>]  </span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> filenames:  </span><br><span class="line">            <span class="keyword">if</span> file.endswith(<span class="string">&quot;.md&quot;</span>):  </span><br><span class="line">                files.append(os.path.join(parent, file))  </span><br><span class="line">    <span class="keyword">return</span> files  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 更新md文件的front matter：</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update_front_matter</span>(<span class="params">file,pre</span>):  </span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        <span class="comment"># content = f.read()  </span></span><br><span class="line">        content = f.read()  </span><br><span class="line">    post = frontmatter.loads(content)  </span><br><span class="line">  </span><br><span class="line">    stat = os.stat(file)  </span><br><span class="line">    modification_time = datetime.datetime.fromtimestamp(stat.st_mtime).strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)  </span><br><span class="line">    creation_time = datetime.datetime.fromtimestamp(stat.st_birthtime).strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)  </span><br><span class="line">    title = <span class="built_in">str</span>(file).split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>].split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]  </span><br><span class="line">    <span class="comment"># 设置categories  </span></span><br><span class="line">    categories = []  </span><br><span class="line">    <span class="comment"># 去掉文件名前缀,根据文件夹名称设置分类</span></span><br><span class="line">    path =<span class="built_in">str</span>(os.path.dirname(file))  </span><br><span class="line">    path = path.replace(pre,<span class="string">&#x27;&#x27;</span>).strip()  </span><br><span class="line">    <span class="keyword">for</span> tem <span class="keyword">in</span>  path.split(<span class="string">&quot;/&quot;</span>):  </span><br><span class="line">        categories.append(tem)  </span><br><span class="line">  </span><br><span class="line">    <span class="comment"># 创建 Front Matter    # 生成新的frontmatter，即post.metadata  </span></span><br><span class="line">    post[<span class="string">&#x27;title&#x27;</span>] = title  </span><br><span class="line">    post[<span class="string">&#x27;create_date&#x27;</span>] = creation_time  </span><br><span class="line">    post[<span class="string">&#x27;update_date&#x27;</span>] = modification_time  </span><br><span class="line">    post[<span class="string">&#x27;categories&#x27;</span>] = categories  </span><br><span class="line">    <span class="comment"># 写入  </span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        f.write(frontmatter.dumps(post))  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:  </span><br><span class="line">    <span class="comment"># 替换为实际的文件夹路径和要添加的 Front Matter 数据  </span></span><br><span class="line">    folder_path = <span class="string">&quot;/Users/Documents/notes&quot;</span>  </span><br><span class="line">    pre =<span class="string">&quot;/Users/Documents/&quot;</span>  </span><br><span class="line">    neededFileNameList =  list_all_files(folder_path,[<span class="string">&#x27;attachments&#x27;</span>])  </span><br><span class="line">    <span class="keyword">for</span> filePath <span class="keyword">in</span> neededFileNameList:  </span><br><span class="line">        update_front_matter(filePath,pre)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
       <categories>
         <category>Personal</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Docker</title>
+    <url>/2024/01/15/Tools/Docker/</url>
+    <content><![CDATA[<blockquote>
+<p>引言: 本文就docker的基本使用及本地的构建发布进行一个简要的记录。</p>
+</blockquote>
+<span id="more"></span>
+<h1 id="Docker三大概念"><a href="#Docker三大概念" class="headerlink" title="Docker三大概念"></a>Docker三大概念</h1><ul>
+<li><p>镜像image<br>　　docker镜像就是一个只读模板，比如，一个镜像可以包含一个完整的centos，里面仅安装apache或用户的其他应用，镜像可以用来创建docker容器，另外docker提供了一个很简单的机制来创建镜像或者更新现有的镜像，用户甚至可以直接从其他人那里下载一个已经做好的镜像来直接使用。</p>
+</li>
+<li><p>容器container<br>　　docker利用容器来运行应用，容器是从镜像创建的运行实例，它可以被启动，开始、停止、删除、每个容器都是互相隔离的，保证安全的平台，可以把容器看做是简易版的linux环境（包括root用户权限、镜像空间、用户空间和网络空间等）和运行在其中的应用程序。</p>
+</li>
+<li><p>仓库repository<br>　　镜像构建完成后，可以很容易的在当前宿主机上运行，但是，如果需要在其它服务器上使用这个镜像，我们就需要一个集中的存储、分发镜像的服务，Docker Registry就是这样的服务。<br>　　一个Docker Registry中可以包含多个仓库</p>
+</li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ul>
+<li>mac 推家使用homebrew安装，可以自动配置环境变量，便于管理。</li>
+<li>安装前确保下载源，不然可能网络通信失败。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew install --cask --appdir=/Applications docker</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">mac下用homebrew安装随意切换目录可能会使homebrew找不到位置而无法打开。</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><table>
+<thead>
+<tr>
+<th>-</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>镜像指令</td>
+<td></td>
+</tr>
+<tr>
+<td>docker images</td>
+<td>列出所有镜像</td>
+</tr>
+<tr>
+<td>docker search nginx</td>
+<td>查找镜像</td>
+</tr>
+<tr>
+<td>docker pull redis:3.2</td>
+<td>下载镜像，可以指定版本</td>
+</tr>
+<tr>
+<td>docker rmi -f redis:3.2</td>
+<td>删除镜像，-f表示强制删除</td>
+</tr>
+<tr>
+<td>docker inspect tomcat</td>
+<td>查看具体信息</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>容器指令</td>
+<td></td>
+</tr>
+<tr>
+<td>docker ps [-a]</td>
+<td>列出运行[创建]容器</td>
+</tr>
+<tr>
+<td>docker create –name [自定义命名] [id,name]</td>
+<td>根据镜像创建容器</td>
+</tr>
+<tr>
+<td>docker start</td>
+<td>启动容器</td>
+</tr>
+<tr>
+<td>docker run</td>
+<td>相当于create+start</td>
+</tr>
+<tr>
+<td>docker kill</td>
+<td>强制停止容器</td>
+</tr>
+<tr>
+<td>docker rm</td>
+<td>删除容器</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>交互式容器</td>
+<td></td>
+</tr>
+<tr>
+<td>docker run -it –name centos1 centos</td>
+<td>进入centos内部</td>
+</tr>
+<tr>
+<td>docker run -d –name tomcat1 tomcat</td>
+<td>守护式启动</td>
+</tr>
+<tr>
+<td>docker exec -it tomcat2 &#x2F;bin&#x2F;bash</td>
+<td>进入容器内部文件系统</td>
+</tr>
+<tr>
+<td>ctrl+p,q</td>
+<td>退出容器</td>
+</tr>
+</tbody></table>
+<h1 id="DockerFile-构建私有镜像"><a href="#DockerFile-构建私有镜像" class="headerlink" title="DockerFile 构建私有镜像"></a>DockerFile 构建私有镜像</h1><ul>
+<li>镜像的定制实际上就是定制每一层所添加的配置、文件。我们可以把每一层修改、安装、构建、操作的命令都写入一个脚本，这个脚本就是Dockerfile。</li>
+<li>Dockerfile是一个文本文件，其内包含了一条条的指令，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。</li>
+</ul>
+<blockquote>
+<p>构建镜像过程可以类似git的版本控制，也有一个类似commit的过程。</p>
+</blockquote>
+<p>构建镜像步骤：</p>
+<ol>
+<li>编写dockerfile文件</li>
+<li>docker build构建镜像</li>
+<li>docker run运行</li>
+<li>docker push 发布镜像(DockerHub、阿里云仓库)</li>
+</ol>
+<h2 id="dockerfile文件详解"><a href="#dockerfile文件详解" class="headerlink" title="dockerfile文件详解"></a>dockerfile文件详解</h2><ul>
+<li>FROM：基础镜像</li>
+<li>MAINTAINER： 镜像发布者标记，推荐name+email</li>
+<li>RUN： 构建镜像需要执行的命令</li>
+<li>COPY&#x2F;ADD：文件拷贝到镜像中</li>
+<li>WORKDIR：镜像工作目录</li>
+<li>VOLUME：挂载目录</li>
+<li>EXPOSE：暴露端口配置</li>
+<li>CMD: 指定这个容器启动的时候要运行的命令，只有最后一个会生效，可被替代。</li>
+<li>ENTRYPOINT: 指定这个容器启动的时候要运行的命令，可以追加命令</li>
+<li>ONBUILD: 当构建一个被继承DockerFile这个时候就会运行ONBUILD的指令，触发指令。</li>
+<li>ENV: 构建的时候设置环境变量</li>
+</ul>
+<h3 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h3><p>指定基础镜像，其中FROM scratch可以创建一个空白镜像</p>
+<h3 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h3><p>RUN时用来执行命令行命令的，它有两种格式</p>
+<ul>
+<li>shell格式：RUN<Command>  eg：RUN echo “hello dockerfile”</Command></li>
+<li>exec格式：RUN[“Command”,”arg1”,”arg2”] eg：RUN[“echo”,”hello dockerfile”]</li>
+<li>推荐exec格式，shell在运行时也是被解析成exec格式的。<ul>
+<li>比如shell格式的<code>CMD echo $HOME</code> 会被解析为<code>CMD [ &quot;sh&quot;, &quot;-c&quot;, &quot;echo $HOME&quot; ]</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="CMD容器启动命令"><a href="#CMD容器启动命令" class="headerlink" title="CMD容器启动命令"></a>CMD容器启动命令</h3><ul>
+<li>docker是进程，启动就需要参数。比如ubuntu默认的cmd时&#x2F;bin&#x2F;bash。docker可以在运行时设置默认命令覆盖镜像设置的参数。</li>
+<li>比如<code>docker run -it ubuntu cat /etc/os-release</code>就可以覆盖&#x2F;bin&#x2F;bash</li>
+<li>注意搞清楚前后台概念，容器都是前台执行的：<ul>
+<li><code>CMD service nginx start</code> 前台执行sh，sh退出主进程退出。容器退出。</li>
+<li><code>CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</code>这样则是直接执行nginx可执行文件并且以前台形式运行。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>CMD会在启动容器的时候执行，build 时不执行，而RUN只是在构建镜像的时候执行，后续镜像构建完成之后，启动容器就与RUN无关了，这个初学者容易弄混这个概念，这里简单注解一下。</p>
+</blockquote>
+<h3 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h3><ul>
+<li>ENTRYPOINT  [“executable”, “param1”, “param2”]</li>
+<li>ENTRYPOINT command param1 param2 (shell form)</li>
+<li>配置容器启动后执行的命令，并且不可被 docker run 提供的参数覆盖，而CMD是可以被覆盖的。如果需要覆盖，则可以使用docker run –entrypoint选项。每个 Dockerfile 中只能有一个ENTRYPOINT，当指定多个时，只有最后一个生效。</li>
+</ul>
+<h3 id="COPY-ADD"><a href="#COPY-ADD" class="headerlink" title="COPY&#x2F;ADD"></a>COPY&#x2F;ADD</h3><p>使用格式：</p>
+<ul>
+<li>COPY&lt;源路径&gt;…&lt;目标路径&gt;   或者 COPY[“&lt;源路径1&gt;”,…”&lt;目标路径&gt;”]</li>
+<li>在使用该指令的时候还可以加上 <code>--chown=&lt;user&gt;:&lt;group&gt;</code> 选项来改变文件的所属用户及所属组。</li>
+</ul>
+<p>copy复制文件，将当前目录下的文件复制到镜像中的指定位置。</p>
+<ul>
+<li>add为更高级的复制文件<br>  提供了更高级的一个用法，就是源路径可以是url，docker引擎回去尝试下载文件到目标路径。</li>
+</ul>
+<blockquote>
+<p>但是最佳实践中推荐用法复制功能使用copy，url功能使用add。</p>
+</blockquote>
+<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><ul>
+<li>格式：EXPOSE&lt;端口1&gt;[&lt;端口2…]。</li>
+<li>EXPOSE指令是声明运行时容器提供服务端口，这只是一个声明，在运行时并不会因为这个声明应用就会开启这个端口的服务。</li>
+<li>在Dockerfile中写入这样的声明有两个好处:<ul>
+<li>1.是帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射;</li>
+<li>2.在运行时使随机端口映射时，也就是docker run-P时，会自动随机映射EXPOSE的端口。</li>
+</ul>
+</li>
+</ul>
+<h3 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h3><ul>
+<li>格式：ENV key value 或者 EVN key1&#x3D;value1 key2&#x3D;value2</li>
+<li>简单的设置环境变量</li>
+</ul>
+<h3 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h3><ul>
+<li>WORKDIR &#x2F;path&#x2F;to&#x2F;workdir</li>
+<li>可以为RUN等指令配置工作目录。可以多次使用</li>
+</ul>
+<h3 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h3><ul>
+<li>VOLUME[“&lt;路径1&gt;”,”&lt;路径2&gt;..] 或者VOLUME&lt;路径&gt;</li>
+<li>数据卷挂载</li>
+</ul>
+<h3 id="ONBULILD"><a href="#ONBULILD" class="headerlink" title="ONBULILD"></a>ONBULILD</h3><ul>
+<li>格式:ONBUILD&lt;其它指令&gt;</li>
+<li>指基于当前镜像，构建下一级镜像时会执行的指令。</li>
+</ul>
+<h2 id="数据挂载"><a href="#数据挂载" class="headerlink" title="数据挂载"></a>数据挂载</h2><p>Docker的最佳实践: 容器存储层的无状态化。数据卷可以载容器中公用，切不会影响镜像，不会随着容器删除。</p>
+<ul>
+<li>创建数据卷<ul>
+<li>docker volume create my-vol<ul>
+<li>此时默认目录- “&#x2F;var&#x2F;lib&#x2F;docker&#x2F;volumes&#x2F;my-vol&#x2F;_data”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>挂载主机目录  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -P --name web --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/src/webapp,target=/usr/share/nginx/html nginx:alpine</span><br><span class="line">   <span class="comment"># -v /src/webapp:/usr/share/nginx/html </span></span><br><span class="line">   <span class="comment"># -v是旧版本，--mount是新版本。-v会默认创建目录，--mount目录不存在会报错。</span></span><br></pre></td></tr></table></figure></li>
+<li>挂载单个文件<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run --<span class="built_in">rm</span> -it \</span><br><span class="line">   <span class="comment"># -v $HOME/.bash_history:/root/.bash_history \</span></span><br><span class="line">   --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=<span class="variable">$HOME</span>/.bash_history,target=/root/.bash_history \</span><br><span class="line">   ubuntu:18.04 \</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="镜像发布"><a href="#镜像发布" class="headerlink" title="镜像发布"></a>镜像发布</h2><ol>
+<li>Docker Hub</li>
+<li>阿里云仓库</li>
+<li>本地仓库<ol>
+<li>安装docker-registry<br> <code>docker run -d -p 5000:5000 --restart=always -v /Users/tianmou/registry:/var/lib/registry --name registry registry</code></li>
+<li>需要讲镜像进行标记比如：<br> <code>docker tag hello-world:latest localhost:5000/hello-world:latest</code><br> 然后就可以进行推送了<br> <code>docker push localhost:5000/hello-world:latest</code></li>
+<li>查看<code>curl 127.0.0.1:5000/v2/_catalog</code> 这是默认指令，v2下放着所有的images<blockquote>
+<p>默认的push时docker.io&#x2F;images，使用需要进行注册。其他的推送镜像需要加上 地址&#x2F;仓库名&#x2F;images，比如本地地址则为127.0.0.1:5000<br>ps:如果你不想使用127.0.0.1:5000作为仓库地址。你就得把例如192.168.74.149:5000这样的内网地址作为私有仓库地址，则需要在配置两种添加  “insecure-registries”:[“192.168.74.149:5000”]。这是因为docker默认推送限制了非https方式。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><p>dockerfile文件</p>
+<figure class="highlight docker"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>  </span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> config /opt/app/config  </span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> lib /opt/app/lib  </span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> xxx.jar /opt/app/xxx.jar  </span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;nohup&quot;</span>,<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;-Xms1024M&quot;</span>,<span class="string">&quot;-Xms2048M&quot;</span>,<span class="string">&quot;/opt/app/xxx.jar&quot;</span>,<span class="string">&quot;--spring.config.location=/opt/app/config/application-qa.properties&quot;</span>,<span class="string">&quot;&gt;/dev/null&quot;</span>,<span class="string">&quot;2&gt;&amp;1&quot;</span>,<span class="string">&quot;&amp;&quot;</span>]  </span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8091</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行命令  </span></span><br><span class="line"><span class="comment"># docker build -f dockerfile -t xxx/backend:1.0 .  </span></span><br><span class="line"><span class="comment"># docker run -e &quot;profiles=ecs&quot; -idt -p 8082:8082 -v /opt/test/log/:/opt/app/log/ -v /opt/test/upload/:/opt/app/upload/ xxx/backend:1.0</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Homebrew+iterm2+Oh-my-zsh</title>
+    <url>/2024/01/15/Tools/Homebrew+iterm2+Oh-my-zsh/</url>
+    <content><![CDATA[<blockquote>
+<p>引言：使用mac就离不开Homebrew，本文为安装homebrew并搭建一套外观看起来还不错的终端。</p>
+</blockquote>
+<span id="more"></span>
+<h1 id="Homebrew的安装"><a href="#Homebrew的安装" class="headerlink" title="Homebrew的安装"></a>Homebrew的安装</h1><p>安装</p>
+<ol>
+<li>进入官网查看，简单点，进入终端输入</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>上面为国外官方源，可能需要科学上网，推荐国内源下载。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/zsh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以参考<a href="https://gitee.com/cunkai/HomebrewCN">gitee hombrewCN</a></li>
+</ul>
+<p>验证</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ brew -h</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>mac默认是zsh解释器，brew指令显示not found，则要手动添加环境变量。</li>
+<li>在.zshrc,bash的话～&#x2F;bash_profile文件尾添加<code>export PATH=&quot;/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH&quot;</code>,然后source一下。</li>
+</ul>
+<h1 id="切换Homebrew源"><a href="#切换Homebrew源" class="headerlink" title="切换Homebrew源"></a>切换Homebrew源</h1><p>homebrew下载对应有三个版本，比如桌面图形化版本的cask，因此更换源需要三个都更换。</p>
+<ul>
+<li>Formulae: 一般是那些命令行工具、开发库、字体、插件等不含 GUI 界面的软件。</li>
+<li>Cask: 是指那些含有 GUI 图形化界面的软件，如 Google Chrome、FireFox 、Atom 等</li>
+</ul>
+<ol>
+<li>替换 Homebrew 源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>&quot;</span></span><br><span class="line">$ git remote set-url origin https://mirrors.ustc.edu.cn/brew.git</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>切换 Homebrew Core 源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core&quot;</span></span><br><span class="line">$ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>切换 Homebrew Cask 源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-cask&quot;</span></span><br><span class="line">$ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果对源使用有疑问，可以详细参考<a href="https://mirrors.ustc.edu.cn/help/brew.git.html">Homebrew源使用帮助</a></p>
+</blockquote>
+<h1 id="常用安装"><a href="#常用安装" class="headerlink" title="常用安装"></a>常用安装</h1><ul>
+<li>待补充<br>python<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install python</span><br><span class="line"><span class="comment">#验证</span></span><br><span class="line">python --version</span><br><span class="line">python3 --version</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装pip</span></span><br><span class="line">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</span><br><span class="line">sudo python get-pip.py</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证</span></span><br><span class="line">pip --version</span><br><span class="line">pip3 --version</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="配套iterm2-Oh-my-zsh"><a href="#配套iterm2-Oh-my-zsh" class="headerlink" title="配套iterm2 &amp;&amp; Oh-my-zsh"></a>配套iterm2 &amp;&amp; Oh-my-zsh</h1><p>#zshrc<br>目前的.zshrc配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> 1 <span class="comment">#zsh 环境配置</span></span><br><span class="line"> 2 <span class="built_in">export</span> ZSH=<span class="string">&quot;<span class="variable">$HOME</span>/.oh-my-zsh&quot;</span></span><br><span class="line"> 3 ZSH_THEME=<span class="string">&quot;agnosterzak&quot;</span></span><br><span class="line"> 4 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</span><br><span class="line"> 5 <span class="built_in">source</span> <span class="variable">$ZSH</span>/oh-my-zsh.sh</span><br><span class="line"> 6</span><br><span class="line"> 7 <span class="comment">#自定义配置</span></span><br><span class="line"> 8 <span class="built_in">alias</span> zsh=<span class="string">&quot;vim ~/.zshrc&quot;</span></span><br><span class="line"> 9 <span class="built_in">alias</span> ..=<span class="string">&quot;cd ..&quot;</span></span><br><span class="line">10 <span class="built_in">alias</span> c=<span class="string">&quot;clear&quot;</span></span><br><span class="line">11</span><br><span class="line">12 <span class="comment">#环境变量配置</span></span><br><span class="line">13 <span class="built_in">export</span> HOMEBREW_NO_AUTO_UPDATE=<span class="literal">true</span></span><br><span class="line">14 DISABLE_AUTO_UPDATE=<span class="string">&quot;true&quot;</span></span><br><span class="line">15 DISABLE_UPDATE_PROMPT=<span class="string">&quot;true&quot;</span></span><br><span class="line">16</span><br><span class="line">17 <span class="comment">#node 环境变量</span></span><br><span class="line">18 <span class="comment">#export PATH=&quot;$PATH:/opt/homebrew/opt/node@16/bin&quot;</span></span><br><span class="line">19</span><br><span class="line">20 <span class="comment">#JAVA 环境变量</span></span><br><span class="line">21 <span class="built_in">export</span> JAVA_HOME=<span class="string">&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_361.jdk/Contents/Home&quot;</span></span><br><span class="line">22</span><br><span class="line">23 <span class="comment">#MAVEN-GRADLE环境变量</span></span><br><span class="line">24 <span class="built_in">export</span> MAVEN_HOME=<span class="string">&quot;/opt/homebrew/Cellar/maven/3.9.4&quot;</span></span><br><span class="line">25 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:<span class="variable">$MAVEN_HOME</span>/bin&quot;</span></span><br><span class="line">26 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/opt/homebrew/opt/gradle@7/bin&quot;</span></span><br><span class="line">27</span><br><span class="line">28 <span class="comment">#添加git环境变量</span></span><br><span class="line">29 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/opt/homebrew/Cellar/git/2.41.0_2/bin&quot;</span></span><br><span class="line">30</span><br><span class="line">31 <span class="comment">#自定义的脚本环境</span></span><br><span class="line">32 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/Users/tianmou/scripts&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://blog.csdn.net/THMAIL/article/details/126571892">配置iterm2 &amp;&amp; Oh-my-zsh</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Jetbrains系列</title>
+    <url>/2024/01/15/Tools/Jetbrains%E7%B3%BB%E5%88%97/</url>
+    <content><![CDATA[<blockquote>
+<p>引言: 本文为Jetbrans系列的安装记录。</p>
+</blockquote>
+<span id="more"></span>
+<h1 id="Jetbrains各个软件的安装"><a href="#Jetbrains各个软件的安装" class="headerlink" title="Jetbrains各个软件的安装"></a>Jetbrains各个软件的安装</h1><p>步骤简述:</p>
+<ol>
+<li>官网下载对应的产品<a href="https://www.jetbrains.com/">Jetbrains官网</a>。ps: 注意提前看一下版本号，key从下列第3&#x2F;5步获取，可以提前去看一下版本号再下载。</li>
+<li>正常安装，推荐用toolbox安装。</li>
+<li>下载激活包。<a href="https://3.jetbra.in/">key和激活包下载网址</a>。会显示暂时能访问的网址，在页眉下载zip文件。</li>
+<li>解压zip激活包，进入scripts目录，运行install.sh。win运行install-current-user.vbs</li>
+<li>打开产品复制对应的key就可以激活。</li>
+<li>正常使用。</li>
+</ol>
+<p>ps: 更换版本的时候需要重新下载对应zip包，重新执行更新后的script脚本。</p>
+<ul>
+<li>遇见的bug<ul>
+<li><a href="https://blog.csdn.net/simongeek/article/details/127646282">Mac版本 打开idea 没响应</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>参考：<a href="https://zhile.io/2021/11/29/ja-netfilter-javaagent-lib.html">开源库来源</a></p>
+</blockquote>
+<h1 id="Idea的Jerberl插件实现热部署"><a href="#Idea的Jerberl插件实现热部署" class="headerlink" title="Idea的Jerberl插件实现热部署"></a>Idea的Jerberl插件实现热部署</h1><ul>
+<li>热部署目前看到有两个比较好实现的方式。1.基于dev-tools依赖 2.基于idea的插件实现。</li>
+<li>此处不想重新下载项目依赖，因此决定选择idea插件。</li>
+<li><a href="https://blog.csdn.net/weixin_42694593/article/details/126448828">Jerberl</a>这篇文章写的很详细，但是没有mac系统的。但是大体的步骤还是一致的，因此此处仅是替换了一个应用程序的启动。</li>
+</ul>
+<ol>
+<li>通过提供的镜像直接搭建本地服务<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull qierkang/golang-reverseproxy</span><br><span class="line">docker run -d -p 8888:8888 qierkang/golang-reverseproxy</span><br></pre></td></tr></table></figure></li>
+<li>通过如下网址直接生成 guid<br><a href="https://www.guidgen.com/" title="https://www.guidgen.com/">https://www.guidgen.com/</a></li>
+<li>在idea插件市场下载插件: JRebel and XRebel</li>
+<li>填写激活信息。此时是需要保证第一步的服务在运行的。<ol>
+<li>选择Team URL</li>
+<li>填写URL：<a href="http://127.0.0.1:8888/%7Bguid%7D">http://127.0.0.1:8888/{guid}</a></li>
+<li>填写邮箱：随便写，保持格式即可。比如：123@qq.com</li>
+<li>勾选同意协议激活！<br>参考：<br><a href="https://blog.csdn.net/l1994m/article/details/132062963">mac版Idea激活Jerbel实现热部署</a></li>
+</ol>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>jerbel</tag>
+        <tag>热部署</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ssh配置</title>
+    <url>/2024/01/15/Tools/ssh%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<blockquote>
+<p>引言: 平时经常会登录远程服务操作。当然一些工具例如windows的xshell，mac里的Terimus都能实现。本文基于本地的终端进行一个简单的配置来实现登录远程服务器。</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="基本登录"><a href="#基本登录" class="headerlink" title="基本登录"></a>基本登录</h2><ul>
+<li>ssh的基本登录 <code>ssh username@host -p port</code></li>
+</ul>
+<blockquote>
+<p>可以通过man ssh查看ssh指令具体信息，包含端口绑定等各种功能，暂未涉及。</p>
+</blockquote>
+<h2 id="免密登录"><a href="#免密登录" class="headerlink" title="免密登录"></a>免密登录</h2><ul>
+<li>这样每次登录均需要手动输入密码</li>
+<li>方式升级：<ul>
+<li>基于公钥登录连接:<ol>
+<li>本地运行指令<code>ssh -keygen -t rsb -b 4096 -C &quot;your_email@example.com&quot;</code></li>
+<li>提示的指令全部回车，可以在～&#x2F;.ssh目录下找到生成的两个文件,id_rsa(私钥),id_rsa.pub(公钥)。</li>
+<li>此时需要将公钥内容放置在服务器的～&#x2F;.ssh目录下的<strong>authorized_keys</strong>文件中，文件名固定。</li>
+<li>如此配置完成，使用ssh登录时则不需要输入密码了。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>此处会有权限相关问题，譬如权限太低导致ssh验证失败问题，暂未遇到。<br>原理说明：<br>    - 公钥登录的原理，是先在本地机器上生成一对公钥和私钥，然后手动把公钥上传到远程服务器。这样每次登录时，远程主机会向用户发送一段随机字符串，而用户会用自己的私钥对这段随机字符串进行加密，然后把加密后的字符串发送给远程主机，远程主机会用用户的公钥对这段字符串进行解密，如果解密后的字符串和远程主机发送的随机字符串一致，那么就认为用户是合法的，允许登录。<br>    - 只需要把私钥传给远程服务器，远程服务器就可以验证私钥是否是对应的公钥，如果是就允许登录，这样就不需要输入密码了。<br>    - SSH 支持多种用于身份验证密钥的公钥算法, 包括 RSA、DSA、ECDSA 和 ED25519 等，其中 RSA 算法是最常用的，因为它是 SSH 协议的默认算法，所以我们这里以 RSA 算法为例来生成密钥，并配置免密码远程连接</p>
+</blockquote>
+<h2 id="配置文件登录"><a href="#配置文件登录" class="headerlink" title="配置文件登录"></a>配置文件登录</h2><ul>
+<li>这样需要较长的ssh指令操作，通过alias也可以基本实现，但是配置较多的话比较繁琐。</li>
+<li>推荐生成配置文件。<br>在～&#x2F;.ssh&#x2F;config文件中进行配置即可，格式如下：<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host &lt;自定义别名&gt;</span><br><span class="line">   HostName &lt;服务器地址&gt;</span><br><span class="line">   Port &lt;端口&gt;</span><br><span class="line">   User &lt;用户名&gt;</span><br><span class="line">   IdentityFile &lt;私钥路径&gt;</span><br><span class="line"></span><br><span class="line">Host lab</span><br><span class="line">   HostName 192.168.1.2</span><br><span class="line">   Port 22</span><br><span class="line">   User jarvis</span><br><span class="line">   IdentityFile ~/.ssh/mykey</span><br></pre></td></tr></table></figure></li>
+<li>基于此配置，我们便可通过 <code>ssh lab</code>进行快速的登录访问了。</li>
+</ul>
+<blockquote>
+<p>如果服务器重装过系统，则需要在<code>~/.ssh/known_hosts</code>中找到该地址并删除。</p>
+</blockquote>
+<h2 id="与服务器交互基本脚本编写"><a href="#与服务器交互基本脚本编写" class="headerlink" title="与服务器交互基本脚本编写"></a>与服务器交互基本脚本编写</h2><ul>
+<li>熟悉<code>scp</code>指令<ul>
+<li>由于前面的配置，此时scp远端直接用自定义的名称交互即可。比如: <code>scp -r ecs_dev:/home/m2/tem_tm .</code></li>
+<li>-r 指代目录下，否则只能下载文件。</li>
+</ul>
+</li>
+<li>通过上面的配置已经达到了通过 ssh lab就能进入远程环境，基于此编写shell脚本。<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1 #!/bin/bash</span><br><span class="line">2 ssh -t -t ecs_dev &lt;&lt;EOF</span><br><span class="line">3 cd /home/m2/tem_tm</span><br><span class="line">4 touch tem.txt</span><br><span class="line">5 exit</span><br><span class="line">6 EOF</span><br></pre></td></tr></table></figure></li>
+<li>说明：<ol>
+<li>此处的-t -t 是必要的，不添加会报没有分配伪终端的错。</li>
+<li>通过&lt;&lt;EOF. EOF包裹是文档作为输入传入终端。EOF是可以替换给任意字符，作为标记字符，当程序扫瞄到第二个EOF则结束。</li>
+</ol>
+</li>
+</ul>
+<h2 id="指令顺序"><a href="#指令顺序" class="headerlink" title="指令顺序"></a>指令顺序</h2><ul>
+<li>我们的脚本只能在当前目录环境执行，如何进行扩展？</li>
+<li><code>type -a ls</code>可以查看我们具体指令的存储位置和alias。</li>
+<li>通过<code>echo $PATH</code>可以查看搜索的路径顺序，如果需要自行添加则可以在对应的比如.zshrc文件中添加<code>export PATH=&quot;$PATH:/Users/tianmou/scripts&quot;</code></li>
+</ul>
+<h2 id="命令行解释器设置"><a href="#命令行解释器设置" class="headerlink" title="命令行解释器设置"></a>命令行解释器设置</h2><ul>
+<li><p>更改命令行解释器</p>
+<ol>
+<li><code>echo $SHELL</code> 查询当前的解释器</li>
+<li><code>cat /etc/shells</code> 查看所有可用的解释器</li>
+<li>输入对应的解释器，比如bash可以直接切换。如果想要登录切换环境则需要使用<code>chsh -s /usr/bin/zsh user1</code>指令更换，user1不加则是当前用户。<strong>注意</strong>：此时环境变量会发生变化的。</li>
+</ol>
+</li>
+<li><p>基于环境变量的操作测试操作：</p>
+<ol>
+<li>输入env可以查看当前的环境变量值。如果没有预想值，则source一下对应文件再进行查看，比如source ～&#x2F;.bashrc,然后env可以获取值。但是再次登录则无法获取，至此需要了解配置文件的读取。</li>
+<li>目前已知会有login shell 和 non-login shell的区别。在环境中输入bash，zsh等进行切换就是non-login shell<ul>
+<li>login shell 读取顺序 &#x2F;etc&#x2F;profile;<del>&#x2F;.bash_pofile;</del>&#x2F;.bash_login,~&#x2F;.profile。找到一个后面则不读取。</li>
+<li>non-login shell 读取~&#x2F;.bashrc来应用新环境变量。</li>
+</ul>
+</li>
+<li>还有interactive和non-interactive的区别<ul>
+<li><code>shopt -q login_shell &amp;&amp; echo &#39;Login shell&#39; || echo &#39;Non-login shell&#39;</code> 获取是否是login</li>
+<li><code>[[ $- == *i* ]] &amp;&amp; echo &#39;Interactive shell&#39; || echo &#39;Non-interactive shell&#39;</code> 获取是否是interactive</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/601630927?utm_id=0">ssh工具搭建</a><br><a href="https://www.cnblogs.com/qinlulu/p/14671345.html">环境变量|Linux环境搭建</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>常用的Docker镜像</title>
+    <url>/2024/01/15/Tools/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E9%95%9C%E5%83%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>引言: 本文为常用的一些镜像及使用注意点记录。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#方法一：直接带密码启动</span></span><br><span class="line">docker run -itd --name redis-6379 -p 6379:6379 redis --requirepass <span class="string">&quot;123456&quot;</span></span><br><span class="line">docker run -d --name redis-server -p 6379:6379 redis:6.0.5 --requirepass <span class="string">&quot;diypassword&quot;</span> --appendonly <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：拉取启动容器后</span></span><br><span class="line"><span class="comment">#进入redis的容器</span></span><br><span class="line">docker <span class="built_in">exec</span> -it 容器ID bash</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入redis目录</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/bin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#运行命令：</span></span><br><span class="line">redis-cli</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看现有的redis密码：</span></span><br><span class="line">config get requirepass</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置redis密码</span></span><br><span class="line">config <span class="built_in">set</span> requirepass 密码</span><br><span class="line"></span><br><span class="line"><span class="comment">#必须项</span></span><br><span class="line"><span class="comment">#因为redis设置了密码，我们需要使用密码来进行验证之后再来对redis客户端进行操作，否则我们没有操作redis缓存数据库的权限。</span></span><br><span class="line">auth 密码</span><br><span class="line"></span><br><span class="line"><span class="comment">#清空redis密码</span></span><br><span class="line">config <span class="built_in">set</span> requirepass <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#直接带密码启动</span></span><br><span class="line">docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql</span><br><span class="line"><span class="comment">#绑定自己的数据卷启动</span></span><br><span class="line">docker run -d -p 3306:3306 -v <span class="variable">$HOME</span>/docker-volume/mysql/conf:/etc/mysql/conf.d -v <span class="variable">$HOME</span>/docker-volume/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root --name mysql01 mysql</span><br><span class="line"><span class="comment">#进入容器内部设置mysql</span></span><br><span class="line">docker <span class="built_in">exec</span> -it mysql /bin/bash</span><br><span class="line">ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED WITH mysql_native_password BY <span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#额外问题-连接报错:java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed</span></span><br><span class="line">- 配置文件连接 url = <span class="string">&quot;jdbc:mysql://localhost:3306/mydatabase?allowPublicKeyRetrieval=true&amp;useSSL=false&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Rabbitmq"><a href="#Rabbitmq" class="headerlink" title="Rabbitmq"></a>Rabbitmq</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#拉取镜像</span></span><br><span class="line">docker pull rabbitmq:management（基于erlang语言环境，此处直接用docker更方便）</span><br><span class="line">docker pull rabbitmq:3.8-management</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建容器并启动</span></span><br><span class="line">docker run -d -p 5672:5672 -p 15672:15672 -p 25672:25672 --name rabbitmq rabbitmq:management</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建容器启动</span></span><br><span class="line">docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8-management</span><br><span class="line"></span><br><span class="line">rabbitmqctl add_user root root</span><br><span class="line">rabbitmqctl set_user_tags root administrator</span><br></pre></td></tr></table></figure>
+
+<p>基本使用:</p>
+<ul>
+<li>在web浏览器中输入地址进行登录：http:&#x2F;&#x2F;虚拟机ip:15672&#x2F;</li>
+<li>输入默认账号: guest  密码:guest<ul>
+<li>添加用户</li>
+<li>创建virtual hosts虚拟主机，类似mysql中的数据库</li>
+<li>设置权限</li>
+</ul>
+</li>
+</ul>
+<h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><ol>
+<li>拉取镜像 <code>sudo docker pull jenkins/jenkins:lts-jdk17@sha256:2d79d87a548ad46472b56e492f652f4b9ece6c447164d83698ae3d5d679d8a22</code><br>拉取后调整一下tag</li>
+<li>启动容器：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> sudo docker run -d -p 8050:8080 \</span><br><span class="line">--user root \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-v /Users/tianmou/docker-volume/jenkins:/var/jenkins_home \</span><br><span class="line">-v /opt/homebrew/Cellar/gradle@6/6.9.4:/usr/local/gradle \</span><br><span class="line">-v /opt/homebrew/Cellar/maven/3.9.5:/usr/local/maven \</span><br><span class="line">-e TZ=Asia/Shanghai \</span><br><span class="line">--name jenkins jenkins/jenkins</span><br></pre></td></tr></table></figure></li>
+<li>修改账户，更换国内下载源<br>Manage Jenkins -&gt; Manage Plugins -&gt; Advanced -&gt; Updatge Site</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>源</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tencent</td>
+<td><a href="https://mirrors.cloud.tencent.com/jenkins/plugins/">https://mirrors.cloud.tencent.com/jenkins/plugins/</a></td>
+</tr>
+<tr>
+<td>huawei</td>
+<td><a href="https://mirrors.huaweicloud.com/jenkins/plugins/">https://mirrors.huaweicloud.com/jenkins/plugins/</a></td>
+</tr>
+<tr>
+<td>ustc</td>
+<td><a href="https://mirrors.ustc.edu.cn/jenkins/plugins/">https://mirrors.ustc.edu.cn/jenkins/plugins/</a></td>
+</tr>
+<tr>
+<td>tinghua</td>
+<td><a href="https://mirrors.tuna.tsinghua.edu.cn/jenkins/plugins">https://mirrors.tuna.tsinghua.edu.cn/jenkins/plugins</a></td>
+</tr>
+</tbody></table>
+<ol start="4">
+<li>安装插件</li>
+</ol>
+<ul>
+<li>git，gitee, github</li>
+<li>gradle, maven integration, docker</li>
+<li>Publish Over SSH, ssh agent</li>
+<li>version number</li>
+<li>Localization: Chinese (Simplified)</li>
+</ul>
+<ol start="4">
+<li>配置环境变量，jenkins里的全局变量配置<br>配置maven和gradle环境变量，vim &#x2F;etc&#x2F;profile,追加到文本末尾。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#maven环境变量配置 </span></span><br><span class="line"><span class="built_in">export</span> MAVEN_HOME=/usr/local/maven</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$MAVEN_HOME</span>/libexec/bin </span><br><span class="line"></span><br><span class="line"><span class="comment">#gradle环境变量配置 </span></span><br><span class="line"><span class="built_in">export</span> GEADLE_HOME=/usr/local/gradle</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$GEADLE_HOME</span>/libexec/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#Java环境</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/var/jenkins_home/config/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+ps: 此处因为homebrew安装，因此bin目录前要加上libexec。添加后source一下。</li>
+</ol>
+<p>手动添加maven的setting.xml文件到 jenkins&#x2F;config目录，设置maven配置路径为&#x2F;var&#x2F;jenkins_home&#x2F;config&#x2F;settings.xml。<br>此处拉取的是jdk17，也可以手动配置java环境。</p>
+<p>java环境<br>查看容器架构：<code>docker inspect --format=&#39;&#123;&#123;.Architecture&#125;&#125;&#39; &lt;容器名称或ID&gt;</code><br>下载对应架构的的jdk安装，此处是arm64。配置环境变量到&#x2F;etc&#x2F;profile里，source即可。java -version可以验证。</p>
+<ol start="5">
+<li>可以开始新建项目了</li>
+</ol>
+<ul>
+<li>连接本机需要开启mac 共享-远程登登录<br>构建shell脚本<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">cd</span> /var/lib/jenkins/workspace/<span class="variable">$JOB_NAME</span>/server</span><br><span class="line"><span class="built_in">source</span> /etc/profile <span class="comment">#声明环境变量</span></span><br><span class="line">gradle clean</span><br><span class="line">gradle bootJar  </span><br><span class="line"><span class="built_in">cd</span> ..</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>ssh构建后脚本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Users/tianmou/abi/backend</span><br><span class="line"><span class="built_in">source</span> /etc/profile <span class="comment"># 不加则会导致docker无法执行，环境变量异常。此命令只保证当前会话有效。</span></span><br><span class="line">./rebuild.sh &gt; output.txt 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>rebuild.sh脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/zsh</span><br><span class="line">cd /Users/tianmou/abi/backend</span><br><span class="line"></span><br><span class="line">CONTAINER_NAME=&quot;abi-backend&quot;</span><br><span class="line">IMAGE_NAME=&quot;abi/backend:latest&quot;</span><br><span class="line">DOCKERFILE_PATH=&quot;./dockerfile&quot;</span><br><span class="line">DOCKER_REGISTRY=&quot;localhost:5000/&quot;</span><br><span class="line"></span><br><span class="line"># 检查容器是否在运行</span><br><span class="line">if docker ps -a -f name=$CONTAINER_NAME &gt;/dev/null; then</span><br><span class="line">    # 停止并删除容器</span><br><span class="line">    docker stop $CONTAINER_NAME</span><br><span class="line">    docker rm $CONTAINER_NAME</span><br><span class="line">    echo &quot;已停止并删除容器&quot;</span><br><span class="line">fi</span><br><span class="line"># 检查镜像是否存在</span><br><span class="line">if docker images -q $IMAGE_NAME &gt;/dev/null; then</span><br><span class="line">    # 删除镜像</span><br><span class="line">    docker rmi $IMAGE_NAME</span><br><span class="line">    echo &quot;已删除镜像&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># 检查镜像是否存在</span><br><span class="line">if docker images -q $DOCKER_REGISTRY$IMAGE_NAME &gt;/dev/null; then</span><br><span class="line">    # 删除镜像</span><br><span class="line">    docker rmi $DOCKER_REGISTRY$IMAGE_NAME</span><br><span class="line">    echo &quot;已删除远程镜像&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># 构建 Docker 镜像</span><br><span class="line">docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH .</span><br><span class="line">docker tag $IMAGE_NAME $DOCKER_REGISTRY$IMAGE_NAME</span><br><span class="line">docker push $IMAGE_NAME $DOCKER_REGISTRY$IMAGE_NAME</span><br><span class="line"></span><br><span class="line"># 启动新的容器</span><br><span class="line">docker run -d -p 8300:8081 -v /Users/tianmou/abi/backend/log:/opt/app/log/ -v /Users/tianmou/abi/backend/upload:/opt/app/upload/ --name $CONTAINER_NAME $IMAGE_NAME</span><br><span class="line">echo &quot;已启动新的容器&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>至此，后端部署完成。</p>
+<p><strong>深坑</strong>：用jenkins在ssh上执行sh脚本操作时会出现，jenkins无法识别sh脚本执行完成，导致一直在进行中超时的情况。</p>
+<ul>
+<li>解决办法：<ol>
+<li>在高级选项中选择exec in pty</li>
+<li>在执行脚本上加上nohup。比如：<code> nohup bash ./bin/startup.sh &gt; /dev/null 2&gt;&amp;1 &amp; sleep 1</code>，建议加上sleep 1.</li>
+</ol>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://blog.csdn.net/wsjzzcbq/article/details/116605492">jenkins 执行 shell脚本成功但构建任务一直未结束或超时_jenkins项目没有构建完但是也没有报异常-CSDN博客</a></li>
+<li><a href="https://ost.51cto.com/posts/24887">docker部署jenkins和使用教程-鸿蒙开发者社区-51CTO.COM|docker部署</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Tools</category>
       </categories>
   </entry>
 </search>
