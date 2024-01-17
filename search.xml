@@ -1,149 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>搭建个人博客</title>
-    <url>/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <title>Logback</title>
+    <url>/2024/01/16/Component/Logback/</url>
     <content><![CDATA[<blockquote>
-<p>引言:<br>本文为Hexo+Next+Github搭建个人博客。<br>    服务器和域名问题直接由github解决<br>    Hexo简单好用，同类产品还有其他选择，可以自行选择。<br>    Next主题也已经比较成熟，可以直接上手，外观简约明了。</p>
-<ul>
-<li>此次流程记录基于mac实现，实现博客方式千千万，实现适合自己的才是最好的。</li>
-</ul>
+<p>引言: 简要记录一下logback日志及自定义日志格式-颜色相关。</p>
 </blockquote>
 <span id="more"></span>
-<h1 id="流程概览"><a href="#流程概览" class="headerlink" title="流程概览"></a>流程概览</h1><ol>
-<li>配置环境&amp;&amp;下载Hexo</li>
-<li>安装Hexo和Next主题</li>
-<li>实现Next主题自定义配置</li>
-<li>功能补充</li>
-</ol>
-<p>参考：<a href="https://blog.csdn.net/weixin_45019350/article/details/121901433?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522170485475516800213023576%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=170485475516800213023576&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-121901433-null-null.142%5Ev99%5Econtrol&utm_term=hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&spm=1018.2226.3001.4187">Hexo-零基础搭建个人博客</a></p>
-<h1 id="环境配置-下载Hexo"><a href="#环境配置-下载Hexo" class="headerlink" title="环境配置&amp;&amp;下载Hexo"></a>环境配置&amp;&amp;下载Hexo</h1><p>前置：homebrew (环境搭建方法千千万，可自行解决，此处仅过一遍流程)</p>
-<h2 id="Node环境"><a href="#Node环境" class="headerlink" title="Node环境"></a>Node环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install node <span class="comment"># node版本有很多兼容性问题，但是hexo建议是最新的，所有此处下载最新的版本:node@21</span></span><br></pre></td></tr></table></figure>
-<h2 id="Git环境"><a href="#Git环境" class="headerlink" title="Git环境"></a>Git环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install git</span><br></pre></td></tr></table></figure>
-<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<p>推荐参考<a href="https://hexo.io/docs/index.html">官网</a></p>
-<h1 id="安装Hexo和Next主题"><a href="#安装Hexo和Next主题" class="headerlink" title="安装Hexo和Next主题"></a>安装Hexo和Next主题</h1><h2 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h2><ul>
-<li>我们需要将博客放置于一个文件夹下，并用hexo初始化<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cd ~ 进入目录</span></span><br><span class="line"><span class="comment"># 初始化文件夹，此时myblog会自动新建</span></span><br><span class="line">hexo init myblog</span><br><span class="line"><span class="comment">#建议进去看一下hexo版本，方便后续配置</span></span><br><span class="line"><span class="built_in">cd</span> myblog</span><br><span class="line">npm list --depth=0 <span class="comment"># 此处npm高版本会默认自带 --depth=0</span></span><br></pre></td></tr></table></figure></li>
-<li>初始化后的文件结构<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png"></li>
-<li>npm list查看依赖版本(此处主要看hexo版本，有些包可能是后面安装的)<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181523.png"></li>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><ul>
+<li>Logback是常用的一个开源的日志组件。<a href="http://logback.qos.ch/">官网</a></li>
+<li>同类产品及对应关系。-slf4j,log4j,logback的作者都是同一人ceki。<ul>
+<li>log4j:作者说log4j太烂，因此开发了升级版本的log4j即logback。</li>
+<li>log4j2:apache开发，对部分框架支持有限，性能优于logback，对于日志logback足够了。</li>
+<li>slf4j。借助于SPI概念理解，slf4j API，log4j和logback才是具体实现。</li>
 </ul>
-<blockquote>
-<p>注意：</p>
-<ol>
-<li>使用hexo可能会有网络问题，可以科学上网解决</li>
-<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#x2e;&#48;&#46;&#x30;">&#x68;&#101;&#x78;&#111;&#x40;&#x37;&#x2e;&#48;&#46;&#x30;</a>和<a href="mailto:&#x68;&#101;&#x78;&#111;&#x40;&#x36;&#46;&#x33;&#46;&#x30;">&#x68;&#101;&#x78;&#111;&#x40;&#x36;&#46;&#x33;&#46;&#x30;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
-</ol>
-</blockquote>
-<h2 id="Next主题安装"><a href="#Next主题安装" class="headerlink" title="Next主题安装"></a>Next主题安装</h2><blockquote>
-<p>主题在Hexo官网可以找到很多，选择适合自己的就好。推荐:shoke，shokeX，3-hexo</p>
-</blockquote>
-<p>详细完整的Next主题配置可以参考Next<a href="https://theme-next.js.org/docs/getting-started/">官网</a>，此处仅涉及个人配置流程。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#cd myblog</span></span><br><span class="line"><span class="comment">#复制主题到themes目录下</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<p>此时修改配置文件<code>_config.yml</code> 中的theme，将landspace改为next，然后执行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#建议设置自定义快捷键</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;alias hexos=&quot;hexo clean &amp;&amp; hexo g &amp;&amp; hexo s&quot;&#x27;</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动hexo</span></span><br><span class="line"><span class="comment"># hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span></span><br><span class="line">hexos</span><br></pre></td></tr></table></figure>
+</li>
+<li>组成模块：<ul>
+<li>logback-core: 基础模块</li>
+<li>logback-classic: log4j 改良版，完整实现了 slf4j API使你可以很方便地更换成其它日志系统如log4j或JDK14 Logging</li>
+<li>logback-access：访问模块与 Servlet 容器集成提供通过 Http 来访问日志的功能。</li>
+</ul>
+</li>
+</ul>
+<h1 id="标签含义和使用"><a href="#标签含义和使用" class="headerlink" title="标签含义和使用"></a>标签含义和使用</h1><h2 id="使用导航"><a href="#使用导航" class="headerlink" title="使用导航"></a>使用导航</h2><p><a href="#%E5%AE%9A%E4%B9%89%E6%A0%B9%E8%8A%82%E7%82%B9">configuration标签</a>:定义根节点<br><a href="#%E5%AE%9A%E4%B9%89%E8%BE%93%E5%85%A5%E6%A8%A1%E5%9D%97">appender标签</a>：定义输出模块<br><a href="#%E8%AE%BE%E7%BD%AE%E5%AF%B9%E5%BA%94%E7%9A%84%E5%8C%85or%E7%B1%BB%E7%9A%84%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B0%E7%BA%A7%E5%88%AB">logger标签</a>：自定义包or类，设置打印级别</p>
+<h2 id="定义文档属性"><a href="#定义文档属性" class="headerlink" title="定义文档属性"></a>定义文档属性</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 日志级别从低到高分为TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL，如果设置为WARN，则低于WARN的信息都不会输出 --&gt;</span>  </span><br></pre></td></tr></table></figure>
 
-<p>看下以下界面则Hexo主题配置成功～<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113183058.png"></p>
-<h1 id="Next的自定义配置"><a href="#Next的自定义配置" class="headerlink" title="Next的自定义配置"></a>Next的自定义配置</h1><h2 id="配置文件确认"><a href="#配置文件确认" class="headerlink" title="配置文件确认"></a>配置文件确认</h2><p>根据官网推荐，我们需要两个配置文件。</p>
-<ol>
-<li>主配置文件，即根目录下的<code>_config.yml</code></li>
-<li>自定义的Next配置文件，执行<code>cp themes/next/_config.yml _config.next.yml</code></li>
-</ol>
-<blockquote>
-<ul>
-<li>此时主配置主要会影响整个界面的设置，Next配置文件则主要影响Next主题的设置，当然两者也有些需要同步影响的设置。</li>
-<li>Hexo配置和Next配置非常多，建议自己对照官网一点点改，实现自定义的界面配置。此处仅介绍几个使用比较重要的配置，当然实现了这几个配置在使用上是没什么问题的。</li>
-</ul>
-</blockquote>
-<h2 id="实现分类和标签功能"><a href="#实现分类和标签功能" class="headerlink" title="实现分类和标签功能"></a>实现分类和标签功能</h2><h3 id="功能实现前"><a href="#功能实现前" class="headerlink" title="功能实现前"></a>功能实现前</h3><ol>
-<li><p>在_post文件下新建一个md文件，比如：<br>其中的front-matter为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Personal</span><br><span class="line">create_date: &#x27;2024-01-10 17:38:57&#x27;</span><br><span class="line">title: 搭建个人博客</span><br><span class="line">update_date: &#x27;2024-01-12 16:58:30&#x27;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行hexos后能在页面上的归档栏能找到对应位置。(注意开启Next配置中的menu的对应分类)<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113190549.png"></p>
-</li>
-<li><p>但是通过分类标签是找不到对应文件的。</p>
-<ul>
-<li>即_post下的所有文件都会被自动归档。但暂时无法根据categories分类</li>
-</ul>
-</li>
-</ol>
-<p><strong>所以我们要实现的就是，根据md文件的categories实现文档的自动分类(标签类似)。</strong></p>
-<h3 id="实现分类、标签、关于页"><a href="#实现分类、标签、关于页" class="headerlink" title="实现分类、标签、关于页"></a>实现分类、标签、关于页</h3><ol>
-<li>新建分类页<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#生成分类</span></span><br><span class="line">hexo new page categories</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成标签</span></span><br><span class="line">hexo new page tags</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成关于</span></span><br><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
-此时会在在source文件夹下生成categories文件夹及categories&#x2F;index.md</li>
-<li>手动修改index.md文件<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">title: categories</span><br><span class="line">date: 2024-01-10 17:38:57</span><br><span class="line">type: &quot;categories&quot; # 标签的话改为&quot;tags&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-此index.md即在menu处点击’分类’,跳转到的页面。(about则在此md文件修改内容即可)<br>需要添加的就是type字段(tag跟categories一样，变更此字段即可)</li>
-<li>给md文件增加front-matter的categories，tags属性就可以自动分类了</li>
-</ol>
-<h2 id="实现搜索功能"><a href="#实现搜索功能" class="headerlink" title="实现搜索功能"></a>实现搜索功能</h2><ul>
-<li>在menu处添加搜索更能</li>
-</ul>
-<ol>
-<li><p>下载插件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改配置文件</p>
-<ul>
-<li>找到_config.next.yml的local_search属性，enable改为true即可</li>
-<li>主配置文件中添加：</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line"># hexo-generator-searchdb</span><br><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10</span><br></pre></td></tr></table></figure>
+<h2 id="定义根节点"><a href="#定义根节点" class="headerlink" title="定义根节点"></a>定义根节点</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true --&gt;</span>  </span><br><span class="line"><span class="comment">&lt;!-- scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 --&gt;</span>  </span><br><span class="line"><span class="comment">&lt;!-- de<span class="doctag">bug:</span>当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">&quot;true&quot;</span> <span class="attr">scanPeriod</span>=<span class="string">&quot;60 seconds&quot;</span> <span class="attr">debug</span>=<span class="string">&quot;false&quot;</span>&gt;</span> </span><br><span class="line">　　  <span class="comment">&lt;!--其他配置省略--&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span>　</span><br></pre></td></tr></table></figure>
 
-<p>重新构建即可。</p>
-<h2 id="实现字数统计"><a href="#实现字数统计" class="headerlink" title="实现字数统计"></a>实现字数统计</h2><ul>
-<li>需要额外下载插件</li>
+<h2 id="定义子节点"><a href="#定义子节点" class="headerlink" title="定义子节点"></a>定义子节点</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">&quot;true&quot;</span> <span class="attr">scanPeriod</span>=<span class="string">&quot;60 seconds&quot;</span> <span class="attr">debug</span>=<span class="string">&quot;false&quot;</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;log.path&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/Users/tianmou/logs/abi&quot;</span>/&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;log.name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ABI_server.log&quot;</span>/&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">contextName</span>&gt;</span>product<span class="tag">&lt;/<span class="name">contextName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span>　</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&lt;contextName&gt;: 上下文节点。用来设置上下文名称，每个 logger 都关联到 logger 上下文，默认上下文名称为 default。但可以使用 <contextName>设置成其他名字，用于区分不同应用程序的记录。一旦设置，不能修改。</contextName></li>
+<li>&lt;property&gt;: 自由属性节点，类似k-v键值对，后文可利用${key}来货去对应的value值。</li>
 </ul>
-<ol>
-<li>执行<code>npm install hexo-word-counter</code></li>
-<li>修改Next配置<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">symbols_count_time:</span><br><span class="line">  symbols: true</span><br><span class="line">  time: true</span><br><span class="line">  total_symbols: true</span><br><span class="line">  total_time: true</span><br><span class="line">  symbols_count_time:</span><br><span class="line">    awl: 4</span><br><span class="line">    wpm: 275</span><br><span class="line">  separated_meta: false</span><br><span class="line">  item_text_total: true</span><br></pre></td></tr></table></figure>
-Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-settings/posts.html?highlight=counter">详细说明</a>。</li>
-</ol>
-<h2 id="实现图片链接"><a href="#实现图片链接" class="headerlink" title="实现图片链接"></a>实现图片链接</h2><ul>
-<li>hexo实际是将md文件转换为html，因此图片路径不做处理会失效。此处提供一个解决方案。</li>
-</ul>
-<ol>
-<li>确保md文件中的图片使用markdown标准语法，即[name](link)</li>
-<li>修改配置，将配置文件中post_asset_folder的false改为true</li>
-<li>安装插件，执行<code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code></li>
-<li>若md文件引用的链接是本地路径，则新建一个文件夹，<strong>命名跟md文件一样的名字</strong>。(若名字不一样是无法识别的，解析后的html文件看到路径是一串不明所以的字符串)</li>
-<li>保证引用的图片在这个文件里就可以。(由于我用的obsidian，所以此处很好操作。也有看到用csdn生成可以访问的外网链接方式)</li>
-</ol>
-<p>比如这种，文件夹名字必须跟文件名保持一致，这是基于插件实现的功能。<br><img src="/2024/01/15/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113220101.png"></p>
+<h2 id="定义输入模块"><a href="#定义输入模块" class="headerlink" title="定义输入模块"></a>定义输入模块</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--输出到控制台 --&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;console&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">encoder</span>&gt;</span>  </span><br><span class="line">		<span class="tag">&lt;<span class="name">Pattern</span>&gt;</span>$&#123;CONSOLE_LOG_PATTERN&#125;<span class="tag">&lt;/<span class="name">Pattern</span>&gt;</span>  </span><br><span class="line">		<span class="tag">&lt;<span class="name">charset</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">charset</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;/<span class="name">encoder</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--输出到文件 --&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;file&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span>  </span><br><span class="line">    <span class="comment">&lt;!-- 正在记录的日志文件的路径及文件名 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">file</span>&gt;</span>$&#123;log.path&#125;/$&#123;log.name&#125;<span class="tag">&lt;/<span class="name">file</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;log.path&#125;/ABI_server.%d&#123;yyyy-MM-dd&#125;.log.gz<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">MaxHistory</span>&gt;</span>15<span class="tag">&lt;/<span class="name">MaxHistory</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">encoder</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%d&#123;yyyy-MM-dd HH:mm:ss&#125; [%5p] [%t] [%c&#123;30&#125;::%M] %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span>  </span><br><span class="line">        <span class="comment">&lt;!-- 设置字符集 --&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">charset</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">charset</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>&lt;Appender&gt;: 输出指向节点。<ul>
+<li>&lt;encoder&gt;: 默认使用的class是PatternLayoutEncoder类。它封装了对日志进行格式化处理，实际上是对多个ClassicConverter 存入了一个map中。如果自定义的 ClassicConverter 较多也可以自定义一个layout。</li>
+<li>&lt;Pattern&gt;: 输出格式化，可以进行自定义。</li>
+<li>&lt;rollingPolicy&gt;: 滚动策略,最常用的就是此处的基于时间的滚动策略。此处对应很多参数可以设置，比如<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.FixedWindowRollingPolicy&quot;</span>&gt;</span> </span><br><span class="line">	  <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>tests.%i.log.zip<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span> </span><br><span class="line">	  <span class="tag">&lt;<span class="name">minIndex</span>&gt;</span>1<span class="tag">&lt;/<span class="name">minIndex</span>&gt;</span> </span><br><span class="line">	  <span class="tag">&lt;<span class="name">maxIndex</span>&gt;</span>3<span class="tag">&lt;/<span class="name">maxIndex</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span> </span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">triggeringPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy&quot;</span>&gt;</span> </span><br><span class="line">	  <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>5MB<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">triggeringPolicy</span>&gt;</span> </span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>还有看到hexo-easy-images这个插件，但是貌似有兼容性问题，不妨可以试试。<a href="https://github.com/boboidream/hexo-easy-images">地址</a></p>
+<p>此时设置生成最大5MB的日志文件，最多三个进行滚动。若超了则会覆盖最早的日志。</p>
 </blockquote>
-<h2 id="实现Github上部署"><a href="#实现Github上部署" class="headerlink" title="实现Github上部署"></a>实现Github上部署</h2><ul>
-<li>Gitee上类似，不过多一个认证过程。</li>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="设置对应的包or类的日志打印级别"><a href="#设置对应的包or类的日志打印级别" class="headerlink" title="设置对应的包or类的日志打印级别"></a>设置对应的包or类的日志打印级别</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;console&quot;</span>/&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;file&quot;</span>/&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;org.springframework&quot;</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span>/&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;com.meritco&quot;</span> <span class="attr">level</span>=<span class="string">&quot;debug&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>&lt;logger&gt;: 用来设置某一个包或具体的某一个类的日志打印级别、以及指定 &lt;appender&gt;。</li>
+<li>&lt;root&gt;: 用来设置打印级别，大小写无关：TRACE，DEBUG，INFO，WARN，ERROR，ALL 和 OFF，不能设置为 INHERITED 或者同义词 NULL。 默认是 DEBUG。</li>
+</ul>
+<h1 id="完整logback-xml文件模版参考"><a href="#完整logback-xml文件模版参考" class="headerlink" title="完整logback.xml文件模版参考"></a>完整logback.xml文件模版参考</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span>  </span><br><span class="line"><span class="comment">&lt;!-- 日志级别从低到高分为TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL，如果设置为WARN，则低于WARN的信息都不会输出 --&gt;</span>  </span><br><span class="line"><span class="comment">&lt;!-- scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true --&gt;</span>  </span><br><span class="line"><span class="comment">&lt;!-- scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 --&gt;</span>  </span><br><span class="line"><span class="comment">&lt;!-- de<span class="doctag">bug:</span>当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 --&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">&quot;true&quot;</span> <span class="attr">scanPeriod</span>=<span class="string">&quot;60 seconds&quot;</span> <span class="attr">debug</span>=<span class="string">&quot;false&quot;</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">contextName</span>&gt;</span>product<span class="tag">&lt;/<span class="name">contextName</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;log.path&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/Users/tianmou/logs/abi&quot;</span>/&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;log.name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ABI_server.log&quot;</span>/&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">&lt;!-- 彩色日志 --&gt;</span>  </span><br><span class="line">    <span class="comment">&lt;!-- 彩色日志依赖的渲染类 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">conversionRule</span> <span class="attr">conversionWord</span>=<span class="string">&quot;clr&quot;</span> <span class="attr">converterClass</span>=<span class="string">&quot;org.springframework.boot.logging.logback.ColorConverter&quot;</span>/&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">conversionRule</span> <span class="attr">conversionWord</span>=<span class="string">&quot;wex&quot;</span> <span class="attr">converterClass</span>=<span class="string">&quot;org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter&quot;</span>/&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">conversionRule</span> <span class="attr">conversionWord</span>=<span class="string">&quot;wEx&quot;</span> <span class="attr">converterClass</span>=<span class="string">&quot;org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter&quot;</span>/&gt;</span>  </span><br><span class="line">    <span class="comment">&lt;!-- 彩色日志格式 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;CONSOLE_LOG_PATTERN&quot;</span>  </span></span><br><span class="line"><span class="tag">              <span class="attr">value</span>=<span class="string">&quot;$&#123;CONSOLE_LOG_PATTERN:-%clr(%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125;)&#123;faint&#125; %clr($&#123;LOG_LEVEL_PATTERN:-%5p&#125;) %clr($&#123;PID:- &#125;)&#123;magenta&#125; %clr(---)&#123;faint&#125; %clr([%15.15t])&#123;faint&#125; %clr(%-40.40logger&#123;39&#125;)&#123;cyan&#125; %clr(:)&#123;faint&#125; %m%n$&#123;LOG_EXCEPTION_CONVERSION_WORD:-%wEx&#125;&#125;&quot;</span>/&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">&lt;!--输出到控制台 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;console&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!--&lt;pattern&gt;%d&#123;yyyy-MM-dd HH:mm:ss&#125; [%5p] [%t] [%c&#123;30&#125;::%M] %msg%n&lt;/pattern&gt;--&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">Pattern</span>&gt;</span>$&#123;CONSOLE_LOG_PATTERN&#125;<span class="tag">&lt;/<span class="name">Pattern</span>&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 设置字符集 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">charset</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">charset</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">&lt;!--输出到文件 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;file&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span>  </span><br><span class="line">        <span class="comment">&lt;!-- 正在记录的日志文件的路径及文件名 --&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">file</span>&gt;</span>$&#123;log.path&#125;/$&#123;log.name&#125;<span class="tag">&lt;/<span class="name">file</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;log.path&#125;/ABI_server.%d&#123;yyyy-MM-dd&#125;.log.gz<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">MaxHistory</span>&gt;</span>15<span class="tag">&lt;/<span class="name">MaxHistory</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%d&#123;yyyy-MM-dd HH:mm:ss&#125; [%5p] [%t] [%c&#123;30&#125;::%M] %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 设置字符集 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">charset</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">charset</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;console&quot;</span>/&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;file&quot;</span>/&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;org.springframework&quot;</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span>/&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;com.meritco&quot;</span> <span class="attr">level</span>=<span class="string">&quot;debug&quot;</span>/&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="输出格式化相关"><a href="#输出格式化相关" class="headerlink" title="输出格式化相关"></a>输出格式化相关</h1><h2 id="输出颜色的逻辑"><a href="#输出颜色的逻辑" class="headerlink" title="输出颜色的逻辑"></a>输出颜色的逻辑</h2><p>Linux的终端是支持颜色的，比如:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[32m message \033[0m&quot;</span></span><br></pre></td></tr></table></figure>
+<p>在终端or控制台是会输出绿色的message，因此日志输出也就是对对应的字符串进行了一个加工。</p>
+<h2 id="logback的字符串解析"><a href="#logback的字符串解析" class="headerlink" title="logback的字符串解析"></a>logback的字符串解析</h2><p>查看PatternLayout类可以看到对应的字符串对应到对应的处理类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PatternLayout</span> <span class="keyword">extends</span> <span class="title class_">PatternLayoutBase</span>&lt;ILoggingEvent&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;String, String&gt; defaultConverterMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, String&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">HEADER_PREFIX</span> <span class="operator">=</span> <span class="string">&quot;#logback.classic pattern: &quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        defaultConverterMap.putAll(Parser.DEFAULT_COMPOSITE_CONVERTER_MAP);</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;d&quot;</span>, DateConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;date&quot;</span>, DateConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;r&quot;</span>, RelativeTimeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;relative&quot;</span>, RelativeTimeConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;level&quot;</span>, LevelConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;le&quot;</span>, LevelConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;p&quot;</span>, LevelConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;t&quot;</span>, ThreadConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;thread&quot;</span>, ThreadConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;lo&quot;</span>, LoggerConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;logger&quot;</span>, LoggerConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;c&quot;</span>, LoggerConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;m&quot;</span>, MessageConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;msg&quot;</span>, MessageConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;message&quot;</span>, MessageConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;C&quot;</span>, ClassOfCallerConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;class&quot;</span>, ClassOfCallerConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;M&quot;</span>, MethodOfCallerConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;method&quot;</span>, MethodOfCallerConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;L&quot;</span>, LineOfCallerConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;line&quot;</span>, LineOfCallerConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;F&quot;</span>, FileOfCallerConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;file&quot;</span>, FileOfCallerConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;X&quot;</span>, MDCConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;mdc&quot;</span>, MDCConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;ex&quot;</span>, ThrowableProxyConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;exception&quot;</span>, ThrowableProxyConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;rEx&quot;</span>, RootCauseFirstThrowableProxyConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;rootException&quot;</span>, RootCauseFirstThrowableProxyConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;throwable&quot;</span>, ThrowableProxyConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;xEx&quot;</span>, ExtendedThrowableProxyConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;xException&quot;</span>, ExtendedThrowableProxyConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;xThrowable&quot;</span>, ExtendedThrowableProxyConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;nopex&quot;</span>, NopThrowableInformationConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;nopexception&quot;</span>, NopThrowableInformationConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;cn&quot;</span>, ContextNameConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;contextName&quot;</span>, ContextNameConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;caller&quot;</span>, CallerDataConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;marker&quot;</span>, MarkerConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;property&quot;</span>, PropertyConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;n&quot;</span>, LineSeparatorConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;black&quot;</span>, BlackCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;red&quot;</span>, RedCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;green&quot;</span>, GreenCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;yellow&quot;</span>, YellowCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;blue&quot;</span>, BlueCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;magenta&quot;</span>, MagentaCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;cyan&quot;</span>, CyanCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;white&quot;</span>, WhiteCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;gray&quot;</span>, GrayCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;boldRed&quot;</span>, BoldRedCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;boldGreen&quot;</span>, BoldGreenCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;boldYellow&quot;</span>, BoldYellowCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;boldBlue&quot;</span>, BoldBlueCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;boldMagenta&quot;</span>, BoldMagentaCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;boldCyan&quot;</span>, BoldCyanCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;boldWhite&quot;</span>, BoldWhiteCompositeConverter.class.getName());</span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;highlight&quot;</span>, HighlightingCompositeConverter.class.getName());</span><br><span class="line"></span><br><span class="line">        defaultConverterMap.put(<span class="string">&quot;lsn&quot;</span>, LocalSequenceNumberConverter.class.getName());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PatternLayout</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.postCompileProcessor = <span class="keyword">new</span> <span class="title class_">EnsureExceptionHandling</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Map&lt;String, String&gt; <span class="title function_">getDefaultConverterMap</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> defaultConverterMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">doLayout</span><span class="params">(ILoggingEvent event)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!isStarted()) &#123;</span><br><span class="line">            <span class="keyword">return</span> CoreConstants.EMPTY_STRING;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> writeLoopOnConverters(event);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">getPresentationHeaderPrefix</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> HEADER_PREFIX;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以看到有许多颜色的解析，包括时间%d，%p，%C都是注册好的。此处有一个MDC的map可以存储更多的值。</li>
+<li>根据这个我们就可以自定义一些字符串进行转换解析。</li>
+<li>变色解析类ForegroundCompositeConverterBase.class，可以看到对颜色的转换。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">ESC_START</span> <span class="operator">=</span> <span class="string">&quot;\033[&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">ESC_END</span> <span class="operator">=</span> <span class="string">&quot;m&quot;</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">SET_DEFAULT_COLOR</span> <span class="operator">=</span> ESC_START + <span class="string">&quot;0;&quot;</span> + DEFAULT_FG + ESC_END;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">transform</span><span class="params">(E event, String in)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        sb.append(ESC_START);</span><br><span class="line">        sb.append(getForegroundColorCode(event));</span><br><span class="line">        sb.append(ESC_END);</span><br><span class="line">        sb.append(in);</span><br><span class="line">        sb.append(SET_DEFAULT_COLOR);</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+其中颜色具体指由ANSIConstant提供<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">ESC_START</span> <span class="operator">=</span> <span class="string">&quot;\033[&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">ESC_END</span> <span class="operator">=</span> <span class="string">&quot;m&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">BOLD</span> <span class="operator">=</span> <span class="string">&quot;1;&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">BLACK_FG</span> <span class="operator">=</span> <span class="string">&quot;30&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">RED_FG</span> <span class="operator">=</span> <span class="string">&quot;31&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">GREEN_FG</span> <span class="operator">=</span> <span class="string">&quot;32&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">YELLOW_FG</span> <span class="operator">=</span> <span class="string">&quot;33&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">BLUE_FG</span> <span class="operator">=</span> <span class="string">&quot;34&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">MAGENTA_FG</span> <span class="operator">=</span> <span class="string">&quot;35&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">CYAN_FG</span> <span class="operator">=</span> <span class="string">&quot;36&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">WHITE_FG</span> <span class="operator">=</span> <span class="string">&quot;37&quot;</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">DEFAULT_FG</span> <span class="operator">=</span> <span class="string">&quot;39&quot;</span>;  </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://logback.qos.ch/">官网</a></li>
+<li><a href="https://icode.blog.csdn.net/article/details/88874162">logback 的使用和 logback.xml 详解 + 多模块项目示例_logback.xml 获取应用名称-CSDN博客</a></li>
+<li><a href="https://www.cnblogs.com/warking/p/5710303.html">logback详解</a></li>
+<li><a href="https://www.huangchaoyu.com/2020/06/28/logback%E8%BE%93%E5%87%BA%E5%BD%A9%E8%89%B2%E6%97%A5%E5%BF%97/#logback%E5%8F%98%E8%89%B2%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86">logback输出彩色日志，每个请求一种颜色 - Hcy blog|</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Component</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Jetbrains系列</title>
+    <url>/2024/01/16/Tools/Jetbrains%E7%B3%BB%E5%88%97/</url>
+    <content><![CDATA[<blockquote>
+<p>引言: 本文为Jetbrans系列的安装记录。</p>
+</blockquote>
+<span id="more"></span>
+<h1 id="Jetbrains各个软件的安装"><a href="#Jetbrains各个软件的安装" class="headerlink" title="Jetbrains各个软件的安装"></a>Jetbrains各个软件的安装</h1><p>步骤简述:</p>
+<ol>
+<li>官网下载对应的产品<a href="https://www.jetbrains.com/">Jetbrains官网</a>。ps: 注意提前看一下版本号，key从下列第3&#x2F;5步获取，可以提前去看一下版本号再下载。</li>
+<li>正常安装，推荐用toolbox安装。</li>
+<li>下载激活包。<a href="https://3.jetbra.in/">key和激活包下载网址</a>。会显示暂时能访问的网址，在页眉下载zip文件。</li>
+<li>解压zip激活包，进入scripts目录，运行install.sh。win运行install-current-user.vbs</li>
+<li>打开产品复制对应的key就可以激活。</li>
+<li>正常使用。</li>
+</ol>
+<p>ps: 更换版本的时候需要重新下载对应zip包，重新执行更新后的script脚本。</p>
+<ul>
+<li>遇见的bug<ul>
+<li><a href="https://blog.csdn.net/simongeek/article/details/127646282">Mac版本 打开idea 没响应</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>参考：<a href="https://zhile.io/2021/11/29/ja-netfilter-javaagent-lib.html">开源库来源</a></p>
+</blockquote>
+<h1 id="Idea的Jerberl插件实现热部署"><a href="#Idea的Jerberl插件实现热部署" class="headerlink" title="Idea的Jerberl插件实现热部署"></a>Idea的Jerberl插件实现热部署</h1><ul>
+<li>热部署目前看到有两个比较好实现的方式。1.基于dev-tools依赖 2.基于idea的插件实现。</li>
+<li>此处不想重新下载项目依赖，因此决定选择idea插件。</li>
+<li><a href="https://blog.csdn.net/weixin_42694593/article/details/126448828">Jerberl</a>这篇文章写的很详细，但是没有mac系统的。但是大体的步骤还是一致的，因此此处仅是替换了一个应用程序的启动。</li>
 </ul>
 <ol>
-<li>新建github仓库。注意仓库名称：限制了后缀。比如：zhangsan.github.io，注意设置为public，要不然后面无法访问。</li>
-<li>安装hexo插件：<code>npm install hexo-deployer-git --save</code></li>
-<li>配置github的ssh公私钥访问。(这个应该不用赘述了吧，不会的话去网上搜下吧～)</li>
-<li>修改配置文件的deploy属性<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">	repo: #仓库地址，ssh方式则需要改成ssh的，http方式会更麻烦</span><br><span class="line">	branch: master</span><br></pre></td></tr></table></figure></li>
-<li>执行指令 <code>hexo d</code>即可</li>
-<li>至此配置完成<ol>
-<li>仓库地址为<a href="https://github.com/zhangsan/zhangsan.github.io/">https://github.com/zhangsan/zhangsan.github.io/</a></li>
-<li>直接访问<a href="https://zhangsan.github.io/%E5%8D%B3%E5%8F%AF%E8%B7%9F%E6%9C%AC%E5%9C%B0%E7%9C%8B%E5%88%B0%E7%9A%84%E9%A1%B5%E9%9D%A2%E4%B8%80%E6%A0%B7">https://zhangsan.github.io/即可跟本地看到的页面一样</a><br>如果访问不到则去仓库setting下面的pages选项，查看一下是否有问题，分支正常且设置为public访问的话是有Visit site按钮可以直达的。</li>
+<li>通过提供的镜像直接搭建本地服务<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull qierkang/golang-reverseproxy</span><br><span class="line">docker run -d -p 8888:8888 qierkang/golang-reverseproxy</span><br></pre></td></tr></table></figure></li>
+<li>通过如下网址直接生成 guid<br><a href="https://www.guidgen.com/" title="https://www.guidgen.com/">https://www.guidgen.com/</a></li>
+<li>在idea插件市场下载插件: JRebel and XRebel</li>
+<li>填写激活信息。此时是需要保证第一步的服务在运行的。<ol>
+<li>选择Team URL</li>
+<li>填写URL：<a href="http://127.0.0.1:8888/%7Bguid%7D">http://127.0.0.1:8888/{guid}</a></li>
+<li>填写邮箱：随便写，保持格式即可。比如：123@qq.com</li>
+<li>勾选同意协议激活！<br>参考：<br><a href="https://blog.csdn.net/l1994m/article/details/132062963">mac版Idea激活Jerbel实现热部署</a></li>
 </ol>
 </li>
-</ol>
-<h1 id="功能补充"><a href="#功能补充" class="headerlink" title="功能补充"></a>功能补充</h1><!--more-->标签，会让标签上面的内容显示在首页展示。避免首页展示所有内容。
-<h2 id="笔记批量增加front-matter"><a href="#笔记批量增加front-matter" class="headerlink" title="笔记批量增加front-matter"></a>笔记批量增加front-matter</h2><ul>
-<li>文件有很多，但是批量修改或者添加时很麻烦，因此这里选择用python来批量处理。</li>
-</ul>
-<ol>
-<li>需要下载依赖<code>pip install python-frontmatter</code></li>
-<li>执行脚本<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 批量为md文件生成front matter  </span></span><br><span class="line"><span class="keyword">import</span> os  </span><br><span class="line"><span class="keyword">import</span> frontmatter  </span><br><span class="line"><span class="keyword">import</span> datetime  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 递归获取提供目录下所有文件  </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">list_all_files</span>(<span class="params">root_path, ignore_dirs=[]</span>):  </span><br><span class="line">    files = []  </span><br><span class="line">    default_dirs = [<span class="string">&quot;.git&quot;</span>, <span class="string">&quot;.obsidian&quot;</span>, <span class="string">&quot;.config&quot;</span>]  </span><br><span class="line">    ignore_dirs.extend(default_dirs)  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">for</span> parent, dirs, filenames <span class="keyword">in</span> os.walk(root_path):  </span><br><span class="line">        dirs[:] = [d <span class="keyword">for</span> d <span class="keyword">in</span> dirs <span class="keyword">if</span> <span class="keyword">not</span> d <span class="keyword">in</span> ignore_dirs]  </span><br><span class="line">        filenames = [f <span class="keyword">for</span> f <span class="keyword">in</span> filenames <span class="keyword">if</span> <span class="keyword">not</span> f[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span>]  </span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> filenames:  </span><br><span class="line">            <span class="keyword">if</span> file.endswith(<span class="string">&quot;.md&quot;</span>):  </span><br><span class="line">                files.append(os.path.join(parent, file))  </span><br><span class="line">    <span class="keyword">return</span> files  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 更新md文件的front matter：</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update_front_matter</span>(<span class="params">file,pre</span>):  </span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        <span class="comment"># content = f.read()  </span></span><br><span class="line">        content = f.read()  </span><br><span class="line">    post = frontmatter.loads(content)  </span><br><span class="line">  </span><br><span class="line">    stat = os.stat(file)  </span><br><span class="line">    modification_time = datetime.datetime.fromtimestamp(stat.st_mtime).strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)  </span><br><span class="line">    creation_time = datetime.datetime.fromtimestamp(stat.st_birthtime).strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)  </span><br><span class="line">    title = <span class="built_in">str</span>(file).split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>].split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]  </span><br><span class="line">    <span class="comment"># 设置categories  </span></span><br><span class="line">    categories = []  </span><br><span class="line">    <span class="comment"># 去掉文件名前缀,根据文件夹名称设置分类</span></span><br><span class="line">    path =<span class="built_in">str</span>(os.path.dirname(file))  </span><br><span class="line">    path = path.replace(pre,<span class="string">&#x27;&#x27;</span>).strip()  </span><br><span class="line">    <span class="keyword">for</span> tem <span class="keyword">in</span>  path.split(<span class="string">&quot;/&quot;</span>):  </span><br><span class="line">        categories.append(tem)  </span><br><span class="line">  </span><br><span class="line">    <span class="comment"># 创建 Front Matter    # 生成新的frontmatter，即post.metadata  </span></span><br><span class="line">    post[<span class="string">&#x27;title&#x27;</span>] = title  </span><br><span class="line">    post[<span class="string">&#x27;create_date&#x27;</span>] = creation_time  </span><br><span class="line">    post[<span class="string">&#x27;update_date&#x27;</span>] = modification_time  </span><br><span class="line">    post[<span class="string">&#x27;categories&#x27;</span>] = categories  </span><br><span class="line">    <span class="comment"># 写入  </span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        f.write(frontmatter.dumps(post))  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:  </span><br><span class="line">    <span class="comment"># 替换为实际的文件夹路径和要添加的 Front Matter 数据  </span></span><br><span class="line">    folder_path = <span class="string">&quot;/Users/Documents/notes&quot;</span>  </span><br><span class="line">    pre =<span class="string">&quot;/Users/Documents/&quot;</span>  </span><br><span class="line">    neededFileNameList =  list_all_files(folder_path,[<span class="string">&#x27;attachments&#x27;</span>])  </span><br><span class="line">    <span class="keyword">for</span> filePath <span class="keyword">in</span> neededFileNameList:  </span><br><span class="line">        update_front_matter(filePath,pre)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ol>
 ]]></content>
       <categories>
-        <category>Personal</category>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>热部署</tag>
+        <tag>Jerberl</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Homebrew+iterm2+Oh-my-zsh</title>
+    <url>/2024/01/16/Tools/Homebrew+iterm2+Oh-my-zsh/</url>
+    <content><![CDATA[<blockquote>
+<p>引言：使用mac就离不开Homebrew，本文为安装homebrew并搭建一套外观看起来还不错的终端。</p>
+</blockquote>
+<span id="more"></span>
+<h1 id="Homebrew的安装"><a href="#Homebrew的安装" class="headerlink" title="Homebrew的安装"></a>Homebrew的安装</h1><p>安装</p>
+<ol>
+<li>进入官网查看，简单点，进入终端输入</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>上面为国外官方源，可能需要科学上网，推荐国内源下载。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/zsh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以参考<a href="https://gitee.com/cunkai/HomebrewCN">gitee hombrewCN</a></li>
+</ul>
+<p>验证</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ brew -h</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>mac默认是zsh解释器，brew指令显示not found，则要手动添加环境变量。</li>
+<li>在.zshrc,bash的话～&#x2F;bash_profile文件尾添加<code>export PATH=&quot;/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH&quot;</code>,然后source一下。</li>
+</ul>
+<h1 id="切换Homebrew源"><a href="#切换Homebrew源" class="headerlink" title="切换Homebrew源"></a>切换Homebrew源</h1><p>homebrew下载对应有三个版本，比如桌面图形化版本的cask，因此更换源需要三个都更换。</p>
+<ul>
+<li>Formulae: 一般是那些命令行工具、开发库、字体、插件等不含 GUI 界面的软件。</li>
+<li>Cask: 是指那些含有 GUI 图形化界面的软件，如 Google Chrome、FireFox 、Atom 等</li>
+</ul>
+<ol>
+<li>替换 Homebrew 源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>&quot;</span></span><br><span class="line">$ git remote set-url origin https://mirrors.ustc.edu.cn/brew.git</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>切换 Homebrew Core 源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core&quot;</span></span><br><span class="line">$ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>切换 Homebrew Cask 源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-cask&quot;</span></span><br><span class="line">$ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果对源使用有疑问，可以详细参考<a href="https://mirrors.ustc.edu.cn/help/brew.git.html">Homebrew源使用帮助</a></p>
+</blockquote>
+<h1 id="常用安装"><a href="#常用安装" class="headerlink" title="常用安装"></a>常用安装</h1><ul>
+<li>待补充<br>python<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install python</span><br><span class="line"><span class="comment">#验证</span></span><br><span class="line">python --version</span><br><span class="line">python3 --version</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装pip</span></span><br><span class="line">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</span><br><span class="line">sudo python get-pip.py</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证</span></span><br><span class="line">pip --version</span><br><span class="line">pip3 --version</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="配套iterm2-Oh-my-zsh"><a href="#配套iterm2-Oh-my-zsh" class="headerlink" title="配套iterm2 &amp;&amp; Oh-my-zsh"></a>配套iterm2 &amp;&amp; Oh-my-zsh</h1><p>#zshrc<br>目前的.zshrc配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> 1 <span class="comment">#zsh 环境配置</span></span><br><span class="line"> 2 <span class="built_in">export</span> ZSH=<span class="string">&quot;<span class="variable">$HOME</span>/.oh-my-zsh&quot;</span></span><br><span class="line"> 3 ZSH_THEME=<span class="string">&quot;agnosterzak&quot;</span></span><br><span class="line"> 4 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</span><br><span class="line"> 5 <span class="built_in">source</span> <span class="variable">$ZSH</span>/oh-my-zsh.sh</span><br><span class="line"> 6</span><br><span class="line"> 7 <span class="comment">#自定义配置</span></span><br><span class="line"> 8 <span class="built_in">alias</span> zsh=<span class="string">&quot;vim ~/.zshrc&quot;</span></span><br><span class="line"> 9 <span class="built_in">alias</span> ..=<span class="string">&quot;cd ..&quot;</span></span><br><span class="line">10 <span class="built_in">alias</span> c=<span class="string">&quot;clear&quot;</span></span><br><span class="line">11</span><br><span class="line">12 <span class="comment">#环境变量配置</span></span><br><span class="line">13 <span class="built_in">export</span> HOMEBREW_NO_AUTO_UPDATE=<span class="literal">true</span></span><br><span class="line">14 DISABLE_AUTO_UPDATE=<span class="string">&quot;true&quot;</span></span><br><span class="line">15 DISABLE_UPDATE_PROMPT=<span class="string">&quot;true&quot;</span></span><br><span class="line">16</span><br><span class="line">17 <span class="comment">#node 环境变量</span></span><br><span class="line">18 <span class="comment">#export PATH=&quot;$PATH:/opt/homebrew/opt/node@16/bin&quot;</span></span><br><span class="line">19</span><br><span class="line">20 <span class="comment">#JAVA 环境变量</span></span><br><span class="line">21 <span class="built_in">export</span> JAVA_HOME=<span class="string">&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_361.jdk/Contents/Home&quot;</span></span><br><span class="line">22</span><br><span class="line">23 <span class="comment">#MAVEN-GRADLE环境变量</span></span><br><span class="line">24 <span class="built_in">export</span> MAVEN_HOME=<span class="string">&quot;/opt/homebrew/Cellar/maven/3.9.4&quot;</span></span><br><span class="line">25 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:<span class="variable">$MAVEN_HOME</span>/bin&quot;</span></span><br><span class="line">26 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/opt/homebrew/opt/gradle@7/bin&quot;</span></span><br><span class="line">27</span><br><span class="line">28 <span class="comment">#添加git环境变量</span></span><br><span class="line">29 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/opt/homebrew/Cellar/git/2.41.0_2/bin&quot;</span></span><br><span class="line">30</span><br><span class="line">31 <span class="comment">#自定义的脚本环境</span></span><br><span class="line">32 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/Users/tianmou/scripts&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://blog.csdn.net/THMAIL/article/details/126571892">配置iterm2 &amp;&amp; Oh-my-zsh</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>常用的Docker镜像</title>
+    <url>/2024/01/16/Tools/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E9%95%9C%E5%83%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>引言: 本文为常用的一些镜像及使用注意点记录。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#方法一：直接带密码启动</span></span><br><span class="line">docker run -itd --name redis-6379 -p 6379:6379 redis --requirepass <span class="string">&quot;123456&quot;</span></span><br><span class="line">docker run -d --name redis-server -p 6379:6379 redis:6.0.5 --requirepass <span class="string">&quot;diypassword&quot;</span> --appendonly <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：拉取启动容器后</span></span><br><span class="line"><span class="comment">#进入redis的容器</span></span><br><span class="line">docker <span class="built_in">exec</span> -it 容器ID bash</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入redis目录</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/bin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#运行命令：</span></span><br><span class="line">redis-cli</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看现有的redis密码：</span></span><br><span class="line">config get requirepass</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置redis密码</span></span><br><span class="line">config <span class="built_in">set</span> requirepass 密码</span><br><span class="line"></span><br><span class="line"><span class="comment">#必须项</span></span><br><span class="line"><span class="comment">#因为redis设置了密码，我们需要使用密码来进行验证之后再来对redis客户端进行操作，否则我们没有操作redis缓存数据库的权限。</span></span><br><span class="line">auth 密码</span><br><span class="line"></span><br><span class="line"><span class="comment">#清空redis密码</span></span><br><span class="line">config <span class="built_in">set</span> requirepass <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#直接带密码启动</span></span><br><span class="line">docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql</span><br><span class="line"><span class="comment">#绑定自己的数据卷启动</span></span><br><span class="line">docker run -d -p 3306:3306 -v <span class="variable">$HOME</span>/docker-volume/mysql/conf:/etc/mysql/conf.d -v <span class="variable">$HOME</span>/docker-volume/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root --name mysql01 mysql</span><br><span class="line"><span class="comment">#进入容器内部设置mysql</span></span><br><span class="line">docker <span class="built_in">exec</span> -it mysql /bin/bash</span><br><span class="line">ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED WITH mysql_native_password BY <span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#额外问题-连接报错:java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed</span></span><br><span class="line">- 配置文件连接 url = <span class="string">&quot;jdbc:mysql://localhost:3306/mydatabase?allowPublicKeyRetrieval=true&amp;useSSL=false&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Rabbitmq"><a href="#Rabbitmq" class="headerlink" title="Rabbitmq"></a>Rabbitmq</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#拉取镜像</span></span><br><span class="line">docker pull rabbitmq:management（基于erlang语言环境，此处直接用docker更方便）</span><br><span class="line">docker pull rabbitmq:3.8-management</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建容器并启动</span></span><br><span class="line">docker run -d -p 5672:5672 -p 15672:15672 -p 25672:25672 --name rabbitmq rabbitmq:management</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建容器启动</span></span><br><span class="line">docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8-management</span><br><span class="line"></span><br><span class="line">rabbitmqctl add_user root root</span><br><span class="line">rabbitmqctl set_user_tags root administrator</span><br></pre></td></tr></table></figure>
+
+<p>基本使用:</p>
+<ul>
+<li>在web浏览器中输入地址进行登录：http:&#x2F;&#x2F;虚拟机ip:15672&#x2F;</li>
+<li>输入默认账号: guest  密码:guest<ul>
+<li>添加用户</li>
+<li>创建virtual hosts虚拟主机，类似mysql中的数据库</li>
+<li>设置权限</li>
+</ul>
+</li>
+</ul>
+<h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><ol>
+<li>拉取镜像 <code>sudo docker pull jenkins/jenkins:lts-jdk17@sha256:2d79d87a548ad46472b56e492f652f4b9ece6c447164d83698ae3d5d679d8a22</code><br>拉取后调整一下tag</li>
+<li>启动容器：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> sudo docker run -d -p 8050:8080 \</span><br><span class="line">--user root \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-v /Users/tianmou/docker-volume/jenkins:/var/jenkins_home \</span><br><span class="line">-v /opt/homebrew/Cellar/gradle@6/6.9.4:/usr/local/gradle \</span><br><span class="line">-v /opt/homebrew/Cellar/maven/3.9.5:/usr/local/maven \</span><br><span class="line">-e TZ=Asia/Shanghai \</span><br><span class="line">--name jenkins jenkins/jenkins</span><br></pre></td></tr></table></figure></li>
+<li>修改账户，更换国内下载源<br>Manage Jenkins -&gt; Manage Plugins -&gt; Advanced -&gt; Updatge Site</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>源</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tencent</td>
+<td><a href="https://mirrors.cloud.tencent.com/jenkins/plugins/">https://mirrors.cloud.tencent.com/jenkins/plugins/</a></td>
+</tr>
+<tr>
+<td>huawei</td>
+<td><a href="https://mirrors.huaweicloud.com/jenkins/plugins/">https://mirrors.huaweicloud.com/jenkins/plugins/</a></td>
+</tr>
+<tr>
+<td>ustc</td>
+<td><a href="https://mirrors.ustc.edu.cn/jenkins/plugins/">https://mirrors.ustc.edu.cn/jenkins/plugins/</a></td>
+</tr>
+<tr>
+<td>tinghua</td>
+<td><a href="https://mirrors.tuna.tsinghua.edu.cn/jenkins/plugins">https://mirrors.tuna.tsinghua.edu.cn/jenkins/plugins</a></td>
+</tr>
+</tbody></table>
+<ol start="4">
+<li>安装插件</li>
+</ol>
+<ul>
+<li>git，gitee, github</li>
+<li>gradle, maven integration, docker</li>
+<li>Publish Over SSH, ssh agent</li>
+<li>version number</li>
+<li>Localization: Chinese (Simplified)</li>
+</ul>
+<ol start="4">
+<li>配置环境变量，jenkins里的全局变量配置<br>配置maven和gradle环境变量，vim &#x2F;etc&#x2F;profile,追加到文本末尾。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#maven环境变量配置 </span></span><br><span class="line"><span class="built_in">export</span> MAVEN_HOME=/usr/local/maven</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$MAVEN_HOME</span>/libexec/bin </span><br><span class="line"></span><br><span class="line"><span class="comment">#gradle环境变量配置 </span></span><br><span class="line"><span class="built_in">export</span> GEADLE_HOME=/usr/local/gradle</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$GEADLE_HOME</span>/libexec/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#Java环境</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/var/jenkins_home/config/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+ps: 此处因为homebrew安装，因此bin目录前要加上libexec。添加后source一下。</li>
+</ol>
+<p>手动添加maven的setting.xml文件到 jenkins&#x2F;config目录，设置maven配置路径为&#x2F;var&#x2F;jenkins_home&#x2F;config&#x2F;settings.xml。<br>此处拉取的是jdk17，也可以手动配置java环境。</p>
+<p>java环境<br>查看容器架构：<code>docker inspect --format=&#39;&#123;&#123;.Architecture&#125;&#125;&#39; &lt;容器名称或ID&gt;</code><br>下载对应架构的的jdk安装，此处是arm64。配置环境变量到&#x2F;etc&#x2F;profile里，source即可。java -version可以验证。</p>
+<ol start="5">
+<li>可以开始新建项目了</li>
+</ol>
+<ul>
+<li>连接本机需要开启mac 共享-远程登登录<br>构建shell脚本<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">cd</span> /var/lib/jenkins/workspace/<span class="variable">$JOB_NAME</span>/server</span><br><span class="line"><span class="built_in">source</span> /etc/profile <span class="comment">#声明环境变量</span></span><br><span class="line">gradle clean</span><br><span class="line">gradle bootJar  </span><br><span class="line"><span class="built_in">cd</span> ..</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>ssh构建后脚本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Users/tianmou/abi/backend</span><br><span class="line"><span class="built_in">source</span> /etc/profile <span class="comment"># 不加则会导致docker无法执行，环境变量异常。此命令只保证当前会话有效。</span></span><br><span class="line">./rebuild.sh &gt; output.txt 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>rebuild.sh脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/zsh</span><br><span class="line">cd /Users/tianmou/abi/backend</span><br><span class="line"></span><br><span class="line">CONTAINER_NAME=&quot;abi-backend&quot;</span><br><span class="line">IMAGE_NAME=&quot;abi/backend:latest&quot;</span><br><span class="line">DOCKERFILE_PATH=&quot;./dockerfile&quot;</span><br><span class="line">DOCKER_REGISTRY=&quot;localhost:5000/&quot;</span><br><span class="line"></span><br><span class="line"># 检查容器是否在运行</span><br><span class="line">if docker ps -a -f name=$CONTAINER_NAME &gt;/dev/null; then</span><br><span class="line">    # 停止并删除容器</span><br><span class="line">    docker stop $CONTAINER_NAME</span><br><span class="line">    docker rm $CONTAINER_NAME</span><br><span class="line">    echo &quot;已停止并删除容器&quot;</span><br><span class="line">fi</span><br><span class="line"># 检查镜像是否存在</span><br><span class="line">if docker images -q $IMAGE_NAME &gt;/dev/null; then</span><br><span class="line">    # 删除镜像</span><br><span class="line">    docker rmi $IMAGE_NAME</span><br><span class="line">    echo &quot;已删除镜像&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># 检查镜像是否存在</span><br><span class="line">if docker images -q $DOCKER_REGISTRY$IMAGE_NAME &gt;/dev/null; then</span><br><span class="line">    # 删除镜像</span><br><span class="line">    docker rmi $DOCKER_REGISTRY$IMAGE_NAME</span><br><span class="line">    echo &quot;已删除远程镜像&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># 构建 Docker 镜像</span><br><span class="line">docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH .</span><br><span class="line">docker tag $IMAGE_NAME $DOCKER_REGISTRY$IMAGE_NAME</span><br><span class="line">docker push $IMAGE_NAME $DOCKER_REGISTRY$IMAGE_NAME</span><br><span class="line"></span><br><span class="line"># 启动新的容器</span><br><span class="line">docker run -d -p 8300:8081 -v /Users/tianmou/abi/backend/log:/opt/app/log/ -v /Users/tianmou/abi/backend/upload:/opt/app/upload/ --name $CONTAINER_NAME $IMAGE_NAME</span><br><span class="line">echo &quot;已启动新的容器&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>至此，后端部署完成。</p>
+<p><strong>深坑</strong>：用jenkins在ssh上执行sh脚本操作时会出现，jenkins无法识别sh脚本执行完成，导致一直在进行中超时的情况。</p>
+<ul>
+<li>解决办法：<ol>
+<li>在高级选项中选择exec in pty</li>
+<li>在执行脚本上加上nohup。比如：<code> nohup bash ./bin/startup.sh &gt; /dev/null 2&gt;&amp;1 &amp; sleep 1</code>，建议加上sleep 1.</li>
+</ol>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://blog.csdn.net/wsjzzcbq/article/details/116605492">jenkins 执行 shell脚本成功但构建任务一直未结束或超时_jenkins项目没有构建完但是也没有报异常-CSDN博客</a></li>
+<li><a href="https://ost.51cto.com/posts/24887">docker部署jenkins和使用教程-鸿蒙开发者社区-51CTO.COM|docker部署</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Tools</category>
       </categories>
   </entry>
   <entry>
     <title>Docker</title>
-    <url>/2024/01/15/Tools/Docker/</url>
+    <url>/2024/01/16/Tools/Docker/</url>
     <content><![CDATA[<blockquote>
 <p>引言: 本文就docker的基本使用及本地的构建发布进行一个简要的记录。</p>
 </blockquote>
@@ -371,126 +520,149 @@ Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-sett
       </categories>
   </entry>
   <entry>
-    <title>Homebrew+iterm2+Oh-my-zsh</title>
-    <url>/2024/01/15/Tools/Homebrew+iterm2+Oh-my-zsh/</url>
+    <title>搭建个人博客</title>
+    <url>/2024/01/16/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<blockquote>
-<p>引言：使用mac就离不开Homebrew，本文为安装homebrew并搭建一套外观看起来还不错的终端。</p>
+<p>引言:<br>本文为Hexo+Next+Github搭建个人博客。<br>    服务器和域名问题直接由github解决<br>    Hexo简单好用，同类产品还有其他选择，可以自行选择。<br>    Next主题也已经比较成熟，可以直接上手，外观简约明了。</p>
+<ul>
+<li>此次流程记录基于mac实现，实现博客方式千千万，实现适合自己的才是最好的。</li>
+</ul>
 </blockquote>
 <span id="more"></span>
-<h1 id="Homebrew的安装"><a href="#Homebrew的安装" class="headerlink" title="Homebrew的安装"></a>Homebrew的安装</h1><p>安装</p>
-<ol>
-<li>进入官网查看，简单点，进入终端输入</li>
+<h1 id="流程概览"><a href="#流程概览" class="headerlink" title="流程概览"></a>流程概览</h1><ol>
+<li>配置环境&amp;&amp;下载Hexo</li>
+<li>安装Hexo和Next主题</li>
+<li>实现Next主题自定义配置</li>
+<li>功能补充</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>上面为国外官方源，可能需要科学上网，推荐国内源下载。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/zsh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>可以参考<a href="https://gitee.com/cunkai/HomebrewCN">gitee hombrewCN</a></li>
-</ul>
-<p>验证</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ brew -h</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>mac默认是zsh解释器，brew指令显示not found，则要手动添加环境变量。</li>
-<li>在.zshrc,bash的话～&#x2F;bash_profile文件尾添加<code>export PATH=&quot;/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH&quot;</code>,然后source一下。</li>
-</ul>
-<h1 id="切换Homebrew源"><a href="#切换Homebrew源" class="headerlink" title="切换Homebrew源"></a>切换Homebrew源</h1><p>homebrew下载对应有三个版本，比如桌面图形化版本的cask，因此更换源需要三个都更换。</p>
-<ul>
-<li>Formulae: 一般是那些命令行工具、开发库、字体、插件等不含 GUI 界面的软件。</li>
-<li>Cask: 是指那些含有 GUI 图形化界面的软件，如 Google Chrome、FireFox 、Atom 等</li>
-</ul>
-<ol>
-<li>替换 Homebrew 源</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>&quot;</span></span><br><span class="line">$ git remote set-url origin https://mirrors.ustc.edu.cn/brew.git</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>切换 Homebrew Core 源</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core&quot;</span></span><br><span class="line">$ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>切换 Homebrew Cask 源</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-cask&quot;</span></span><br><span class="line">$ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>如果对源使用有疑问，可以详细参考<a href="https://mirrors.ustc.edu.cn/help/brew.git.html">Homebrew源使用帮助</a></p>
-</blockquote>
-<h1 id="常用安装"><a href="#常用安装" class="headerlink" title="常用安装"></a>常用安装</h1><ul>
-<li>待补充<br>python<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install python</span><br><span class="line"><span class="comment">#验证</span></span><br><span class="line">python --version</span><br><span class="line">python3 --version</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装pip</span></span><br><span class="line">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</span><br><span class="line">sudo python get-pip.py</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证</span></span><br><span class="line">pip --version</span><br><span class="line">pip3 --version</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="配套iterm2-Oh-my-zsh"><a href="#配套iterm2-Oh-my-zsh" class="headerlink" title="配套iterm2 &amp;&amp; Oh-my-zsh"></a>配套iterm2 &amp;&amp; Oh-my-zsh</h1><p>#zshrc<br>目前的.zshrc配置</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> 1 <span class="comment">#zsh 环境配置</span></span><br><span class="line"> 2 <span class="built_in">export</span> ZSH=<span class="string">&quot;<span class="variable">$HOME</span>/.oh-my-zsh&quot;</span></span><br><span class="line"> 3 ZSH_THEME=<span class="string">&quot;agnosterzak&quot;</span></span><br><span class="line"> 4 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</span><br><span class="line"> 5 <span class="built_in">source</span> <span class="variable">$ZSH</span>/oh-my-zsh.sh</span><br><span class="line"> 6</span><br><span class="line"> 7 <span class="comment">#自定义配置</span></span><br><span class="line"> 8 <span class="built_in">alias</span> zsh=<span class="string">&quot;vim ~/.zshrc&quot;</span></span><br><span class="line"> 9 <span class="built_in">alias</span> ..=<span class="string">&quot;cd ..&quot;</span></span><br><span class="line">10 <span class="built_in">alias</span> c=<span class="string">&quot;clear&quot;</span></span><br><span class="line">11</span><br><span class="line">12 <span class="comment">#环境变量配置</span></span><br><span class="line">13 <span class="built_in">export</span> HOMEBREW_NO_AUTO_UPDATE=<span class="literal">true</span></span><br><span class="line">14 DISABLE_AUTO_UPDATE=<span class="string">&quot;true&quot;</span></span><br><span class="line">15 DISABLE_UPDATE_PROMPT=<span class="string">&quot;true&quot;</span></span><br><span class="line">16</span><br><span class="line">17 <span class="comment">#node 环境变量</span></span><br><span class="line">18 <span class="comment">#export PATH=&quot;$PATH:/opt/homebrew/opt/node@16/bin&quot;</span></span><br><span class="line">19</span><br><span class="line">20 <span class="comment">#JAVA 环境变量</span></span><br><span class="line">21 <span class="built_in">export</span> JAVA_HOME=<span class="string">&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_361.jdk/Contents/Home&quot;</span></span><br><span class="line">22</span><br><span class="line">23 <span class="comment">#MAVEN-GRADLE环境变量</span></span><br><span class="line">24 <span class="built_in">export</span> MAVEN_HOME=<span class="string">&quot;/opt/homebrew/Cellar/maven/3.9.4&quot;</span></span><br><span class="line">25 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:<span class="variable">$MAVEN_HOME</span>/bin&quot;</span></span><br><span class="line">26 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/opt/homebrew/opt/gradle@7/bin&quot;</span></span><br><span class="line">27</span><br><span class="line">28 <span class="comment">#添加git环境变量</span></span><br><span class="line">29 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/opt/homebrew/Cellar/git/2.41.0_2/bin&quot;</span></span><br><span class="line">30</span><br><span class="line">31 <span class="comment">#自定义的脚本环境</span></span><br><span class="line">32 <span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/Users/tianmou/scripts&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://blog.csdn.net/THMAIL/article/details/126571892">配置iterm2 &amp;&amp; Oh-my-zsh</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Tools</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Jetbrains系列</title>
-    <url>/2024/01/15/Tools/Jetbrains%E7%B3%BB%E5%88%97/</url>
-    <content><![CDATA[<blockquote>
-<p>引言: 本文为Jetbrans系列的安装记录。</p>
-</blockquote>
-<span id="more"></span>
-<h1 id="Jetbrains各个软件的安装"><a href="#Jetbrains各个软件的安装" class="headerlink" title="Jetbrains各个软件的安装"></a>Jetbrains各个软件的安装</h1><p>步骤简述:</p>
-<ol>
-<li>官网下载对应的产品<a href="https://www.jetbrains.com/">Jetbrains官网</a>。ps: 注意提前看一下版本号，key从下列第3&#x2F;5步获取，可以提前去看一下版本号再下载。</li>
-<li>正常安装，推荐用toolbox安装。</li>
-<li>下载激活包。<a href="https://3.jetbra.in/">key和激活包下载网址</a>。会显示暂时能访问的网址，在页眉下载zip文件。</li>
-<li>解压zip激活包，进入scripts目录，运行install.sh。win运行install-current-user.vbs</li>
-<li>打开产品复制对应的key就可以激活。</li>
-<li>正常使用。</li>
-</ol>
-<p>ps: 更换版本的时候需要重新下载对应zip包，重新执行更新后的script脚本。</p>
-<ul>
-<li>遇见的bug<ul>
-<li><a href="https://blog.csdn.net/simongeek/article/details/127646282">Mac版本 打开idea 没响应</a></li>
-</ul>
-</li>
+<p>参考：<a href="https://blog.csdn.net/weixin_45019350/article/details/121901433?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522170485475516800213023576%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=170485475516800213023576&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-121901433-null-null.142%5Ev99%5Econtrol&utm_term=hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&spm=1018.2226.3001.4187">Hexo-零基础搭建个人博客</a></p>
+<h1 id="环境配置-下载Hexo"><a href="#环境配置-下载Hexo" class="headerlink" title="环境配置&amp;&amp;下载Hexo"></a>环境配置&amp;&amp;下载Hexo</h1><p>前置：homebrew (环境搭建方法千千万，可自行解决，此处仅过一遍流程)</p>
+<h2 id="Node环境"><a href="#Node环境" class="headerlink" title="Node环境"></a>Node环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install node <span class="comment"># node版本有很多兼容性问题，但是hexo建议是最新的，所有此处下载最新的版本:node@21</span></span><br></pre></td></tr></table></figure>
+<h2 id="Git环境"><a href="#Git环境" class="headerlink" title="Git环境"></a>Git环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install git</span><br></pre></td></tr></table></figure>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>推荐参考<a href="https://hexo.io/docs/index.html">官网</a></p>
+<h1 id="安装Hexo和Next主题"><a href="#安装Hexo和Next主题" class="headerlink" title="安装Hexo和Next主题"></a>安装Hexo和Next主题</h1><h2 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h2><ul>
+<li>我们需要将博客放置于一个文件夹下，并用hexo初始化<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cd ~ 进入目录</span></span><br><span class="line"><span class="comment"># 初始化文件夹，此时myblog会自动新建</span></span><br><span class="line">hexo init myblog</span><br><span class="line"><span class="comment">#建议进去看一下hexo版本，方便后续配置</span></span><br><span class="line"><span class="built_in">cd</span> myblog</span><br><span class="line">npm list --depth=0 <span class="comment"># 此处npm高版本会默认自带 --depth=0</span></span><br></pre></td></tr></table></figure></li>
+<li>初始化后的文件结构<br><img src="/2024/01/16/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181417.png"></li>
+<li>npm list查看依赖版本(此处主要看hexo版本，有些包可能是后面安装的)<br><img src="/2024/01/16/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113181523.png"></li>
 </ul>
 <blockquote>
-<p>参考：<a href="https://zhile.io/2021/11/29/ja-netfilter-javaagent-lib.html">开源库来源</a></p>
+<p>注意：</p>
+<ol>
+<li>使用hexo可能会有网络问题，可以科学上网解决</li>
+<li>初始化hexo指令就目前来讲，会出现两个版本<a href="mailto:&#104;&#x65;&#x78;&#x6f;&#x40;&#x37;&#x2e;&#48;&#x2e;&#48;">&#104;&#x65;&#x78;&#x6f;&#x40;&#x37;&#x2e;&#48;&#x2e;&#48;</a>和<a href="mailto:&#104;&#101;&#x78;&#111;&#64;&#x36;&#46;&#x33;&#46;&#48;">&#104;&#101;&#x78;&#111;&#64;&#x36;&#46;&#x33;&#46;&#48;</a>。我选择的高版本。(不行就多试几次，貌似网络拉不到最新版hexo就会拉旧版)</li>
+</ol>
 </blockquote>
-<h1 id="Idea的Jerberl插件实现热部署"><a href="#Idea的Jerberl插件实现热部署" class="headerlink" title="Idea的Jerberl插件实现热部署"></a>Idea的Jerberl插件实现热部署</h1><ul>
-<li>热部署目前看到有两个比较好实现的方式。1.基于dev-tools依赖 2.基于idea的插件实现。</li>
-<li>此处不想重新下载项目依赖，因此决定选择idea插件。</li>
-<li><a href="https://blog.csdn.net/weixin_42694593/article/details/126448828">Jerberl</a>这篇文章写的很详细，但是没有mac系统的。但是大体的步骤还是一致的，因此此处仅是替换了一个应用程序的启动。</li>
+<h2 id="Next主题安装"><a href="#Next主题安装" class="headerlink" title="Next主题安装"></a>Next主题安装</h2><blockquote>
+<p>主题在Hexo官网可以找到很多，选择适合自己的就好。推荐:shoke，shokeX，3-hexo</p>
+</blockquote>
+<p>详细完整的Next主题配置可以参考Next<a href="https://theme-next.js.org/docs/getting-started/">官网</a>，此处仅涉及个人配置流程。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#cd myblog</span></span><br><span class="line"><span class="comment">#复制主题到themes目录下</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<p>此时修改配置文件<code>_config.yml</code> 中的theme，将landspace改为next，然后执行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#建议设置自定义快捷键</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;alias hexos=&quot;hexo clean &amp;&amp; hexo g &amp;&amp; hexo s&quot;&#x27;</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动hexo</span></span><br><span class="line"><span class="comment"># hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span></span><br><span class="line">hexos</span><br></pre></td></tr></table></figure>
+
+<p>看下以下界面则Hexo主题配置成功～<br><img src="/2024/01/16/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113183058.png"></p>
+<h1 id="Next的自定义配置"><a href="#Next的自定义配置" class="headerlink" title="Next的自定义配置"></a>Next的自定义配置</h1><h2 id="配置文件确认"><a href="#配置文件确认" class="headerlink" title="配置文件确认"></a>配置文件确认</h2><p>根据官网推荐，我们需要两个配置文件。</p>
+<ol>
+<li>主配置文件，即根目录下的<code>_config.yml</code></li>
+<li>自定义的Next配置文件，执行<code>cp themes/next/_config.yml _config.next.yml</code></li>
+</ol>
+<blockquote>
+<ul>
+<li>此时主配置主要会影响整个界面的设置，Next配置文件则主要影响Next主题的设置，当然两者也有些需要同步影响的设置。</li>
+<li>Hexo配置和Next配置非常多，建议自己对照官网一点点改，实现自定义的界面配置。此处仅介绍几个使用比较重要的配置，当然实现了这几个配置在使用上是没什么问题的。</li>
+</ul>
+</blockquote>
+<h2 id="实现分类和标签功能"><a href="#实现分类和标签功能" class="headerlink" title="实现分类和标签功能"></a>实现分类和标签功能</h2><h3 id="功能实现前"><a href="#功能实现前" class="headerlink" title="功能实现前"></a>功能实现前</h3><ol>
+<li><p>在_post文件下新建一个md文件，比如：<br>其中的front-matter为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Personal</span><br><span class="line">create_date: &#x27;2024-01-10 17:38:57&#x27;</span><br><span class="line">title: 搭建个人博客</span><br><span class="line">update_date: &#x27;2024-01-12 16:58:30&#x27;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行hexos后能在页面上的归档栏能找到对应位置。(注意开启Next配置中的menu的对应分类)<br><img src="/2024/01/16/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113190549.png"></p>
+</li>
+<li><p>但是通过分类标签是找不到对应文件的。</p>
+<ul>
+<li>即_post下的所有文件都会被自动归档。但暂时无法根据categories分类</li>
+</ul>
+</li>
+</ol>
+<p><strong>所以我们要实现的就是，根据md文件的categories实现文档的自动分类(标签类似)。</strong></p>
+<h3 id="实现分类、标签、关于页"><a href="#实现分类、标签、关于页" class="headerlink" title="实现分类、标签、关于页"></a>实现分类、标签、关于页</h3><ol>
+<li>新建分类页<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#生成分类</span></span><br><span class="line">hexo new page categories</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成标签</span></span><br><span class="line">hexo new page tags</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成关于</span></span><br><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
+此时会在在source文件夹下生成categories文件夹及categories&#x2F;index.md</li>
+<li>手动修改index.md文件<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">title: categories</span><br><span class="line">date: 2024-01-10 17:38:57</span><br><span class="line">type: &quot;categories&quot; # 标签的话改为&quot;tags&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+此index.md即在menu处点击’分类’,跳转到的页面。(about则在此md文件修改内容即可)<br>需要添加的就是type字段(tag跟categories一样，变更此字段即可)</li>
+<li>给md文件增加front-matter的categories，tags属性就可以自动分类了</li>
+</ol>
+<h2 id="实现搜索功能"><a href="#实现搜索功能" class="headerlink" title="实现搜索功能"></a>实现搜索功能</h2><ul>
+<li>在menu处添加搜索更能</li>
 </ul>
 <ol>
-<li>通过提供的镜像直接搭建本地服务<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull qierkang/golang-reverseproxy</span><br><span class="line">docker run -d -p 8888:8888 qierkang/golang-reverseproxy</span><br></pre></td></tr></table></figure></li>
-<li>通过如下网址直接生成 guid<br><a href="https://www.guidgen.com/" title="https://www.guidgen.com/">https://www.guidgen.com/</a></li>
-<li>在idea插件市场下载插件: JRebel and XRebel</li>
-<li>填写激活信息。此时是需要保证第一步的服务在运行的。<ol>
-<li>选择Team URL</li>
-<li>填写URL：<a href="http://127.0.0.1:8888/%7Bguid%7D">http://127.0.0.1:8888/{guid}</a></li>
-<li>填写邮箱：随便写，保持格式即可。比如：123@qq.com</li>
-<li>勾选同意协议激活！<br>参考：<br><a href="https://blog.csdn.net/l1994m/article/details/132062963">mac版Idea激活Jerbel实现热部署</a></li>
+<li><p>下载插件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件</p>
+<ul>
+<li>找到_config.next.yml的local_search属性，enable改为true即可</li>
+<li>主配置文件中添加：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line"># hexo-generator-searchdb</span><br><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10</span><br></pre></td></tr></table></figure>
+
+<p>重新构建即可。</p>
+<h2 id="实现字数统计"><a href="#实现字数统计" class="headerlink" title="实现字数统计"></a>实现字数统计</h2><ul>
+<li>需要额外下载插件</li>
+</ul>
+<ol>
+<li>执行<code>npm install hexo-word-counter</code></li>
+<li>修改Next配置<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">symbols_count_time:</span><br><span class="line">  symbols: true</span><br><span class="line">  time: true</span><br><span class="line">  total_symbols: true</span><br><span class="line">  total_time: true</span><br><span class="line">  symbols_count_time:</span><br><span class="line">    awl: 4</span><br><span class="line">    wpm: 275</span><br><span class="line">  separated_meta: false</span><br><span class="line">  item_text_total: true</span><br></pre></td></tr></table></figure>
+Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-settings/posts.html?highlight=counter">详细说明</a>。</li>
+</ol>
+<h2 id="实现图片链接"><a href="#实现图片链接" class="headerlink" title="实现图片链接"></a>实现图片链接</h2><ul>
+<li>hexo实际是将md文件转换为html，因此图片路径不做处理会失效。此处提供一个解决方案。</li>
+</ul>
+<ol>
+<li>确保md文件中的图片使用markdown标准语法，即[name](link)</li>
+<li>修改配置，将配置文件中post_asset_folder的false改为true</li>
+<li>安装插件，执行<code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code></li>
+<li>若md文件引用的链接是本地路径，则新建一个文件夹，<strong>命名跟md文件一样的名字</strong>。(若名字不一样是无法识别的，解析后的html文件看到路径是一串不明所以的字符串)</li>
+<li>保证引用的图片在这个文件里就可以。(由于我用的obsidian，所以此处很好操作。也有看到用csdn生成可以访问的外网链接方式)</li>
+</ol>
+<p>比如这种，文件夹名字必须跟文件名保持一致，这是基于插件实现的功能。<br><img src="/2024/01/16/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Pasted%20image%2020240113220101.png"></p>
+<blockquote>
+<p>还有看到hexo-easy-images这个插件，但是貌似有兼容性问题，不妨可以试试。<a href="https://github.com/boboidream/hexo-easy-images">地址</a></p>
+</blockquote>
+<h2 id="实现Github上部署"><a href="#实现Github上部署" class="headerlink" title="实现Github上部署"></a>实现Github上部署</h2><ul>
+<li>Gitee上类似，不过多一个认证过程。</li>
+</ul>
+<ol>
+<li>新建github仓库。注意仓库名称：限制了后缀。比如：zhangsan.github.io，注意设置为public，要不然后面无法访问。</li>
+<li>安装hexo插件：<code>npm install hexo-deployer-git --save</code></li>
+<li>配置github的ssh公私钥访问。(这个应该不用赘述了吧，不会的话去网上搜下吧～)</li>
+<li>修改配置文件的deploy属性<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">	repo: #仓库地址，ssh方式则需要改成ssh的，http方式会更麻烦</span><br><span class="line">	branch: master</span><br></pre></td></tr></table></figure></li>
+<li>执行指令 <code>hexo d</code>即可</li>
+<li>至此配置完成<ol>
+<li>仓库地址为<a href="https://github.com/zhangsan/zhangsan.github.io/">https://github.com/zhangsan/zhangsan.github.io/</a></li>
+<li>直接访问<a href="https://zhangsan.github.io/%E5%8D%B3%E5%8F%AF%E8%B7%9F%E6%9C%AC%E5%9C%B0%E7%9C%8B%E5%88%B0%E7%9A%84%E9%A1%B5%E9%9D%A2%E4%B8%80%E6%A0%B7">https://zhangsan.github.io/即可跟本地看到的页面一样</a><br>如果访问不到则去仓库setting下面的pages选项，查看一下是否有问题，分支正常且设置为public访问的话是有Visit site按钮可以直达的。</li>
 </ol>
 </li>
 </ol>
+<h1 id="功能补充"><a href="#功能补充" class="headerlink" title="功能补充"></a>功能补充</h1><!--more-->标签，会让标签上面的内容显示在首页展示。避免首页展示所有内容。
+<h2 id="笔记批量增加front-matter"><a href="#笔记批量增加front-matter" class="headerlink" title="笔记批量增加front-matter"></a>笔记批量增加front-matter</h2><ul>
+<li>文件有很多，但是批量修改或者添加时很麻烦，因此这里选择用python来批量处理。</li>
+</ul>
+<ol>
+<li>需要下载依赖<code>pip install python-frontmatter</code></li>
+<li>执行脚本<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 批量为md文件生成front matter  </span></span><br><span class="line"><span class="keyword">import</span> os  </span><br><span class="line"><span class="keyword">import</span> frontmatter  </span><br><span class="line"><span class="keyword">import</span> datetime  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 递归获取提供目录下所有文件  </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">list_all_files</span>(<span class="params">root_path, ignore_dirs=[]</span>):  </span><br><span class="line">    files = []  </span><br><span class="line">    default_dirs = [<span class="string">&quot;.git&quot;</span>, <span class="string">&quot;.obsidian&quot;</span>, <span class="string">&quot;.config&quot;</span>]  </span><br><span class="line">    ignore_dirs.extend(default_dirs)  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">for</span> parent, dirs, filenames <span class="keyword">in</span> os.walk(root_path):  </span><br><span class="line">        dirs[:] = [d <span class="keyword">for</span> d <span class="keyword">in</span> dirs <span class="keyword">if</span> <span class="keyword">not</span> d <span class="keyword">in</span> ignore_dirs]  </span><br><span class="line">        filenames = [f <span class="keyword">for</span> f <span class="keyword">in</span> filenames <span class="keyword">if</span> <span class="keyword">not</span> f[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span>]  </span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> filenames:  </span><br><span class="line">            <span class="keyword">if</span> file.endswith(<span class="string">&quot;.md&quot;</span>):  </span><br><span class="line">                files.append(os.path.join(parent, file))  </span><br><span class="line">    <span class="keyword">return</span> files  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 更新md文件的front matter：</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update_front_matter</span>(<span class="params">file,pre</span>):  </span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        <span class="comment"># content = f.read()  </span></span><br><span class="line">        content = f.read()  </span><br><span class="line">    post = frontmatter.loads(content)  </span><br><span class="line">  </span><br><span class="line">    stat = os.stat(file)  </span><br><span class="line">    modification_time = datetime.datetime.fromtimestamp(stat.st_mtime).strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)  </span><br><span class="line">    creation_time = datetime.datetime.fromtimestamp(stat.st_birthtime).strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)  </span><br><span class="line">    title = <span class="built_in">str</span>(file).split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>].split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]  </span><br><span class="line">    <span class="comment"># 设置categories  </span></span><br><span class="line">    categories = []  </span><br><span class="line">    <span class="comment"># 去掉文件名前缀,根据文件夹名称设置分类</span></span><br><span class="line">    path =<span class="built_in">str</span>(os.path.dirname(file))  </span><br><span class="line">    path = path.replace(pre,<span class="string">&#x27;&#x27;</span>).strip()  </span><br><span class="line">    <span class="keyword">for</span> tem <span class="keyword">in</span>  path.split(<span class="string">&quot;/&quot;</span>):  </span><br><span class="line">        categories.append(tem)  </span><br><span class="line">  </span><br><span class="line">    <span class="comment"># 创建 Front Matter    # 生成新的frontmatter，即post.metadata  </span></span><br><span class="line">    post[<span class="string">&#x27;title&#x27;</span>] = title  </span><br><span class="line">    post[<span class="string">&#x27;create_date&#x27;</span>] = creation_time  </span><br><span class="line">    post[<span class="string">&#x27;update_date&#x27;</span>] = modification_time  </span><br><span class="line">    post[<span class="string">&#x27;categories&#x27;</span>] = categories  </span><br><span class="line">    <span class="comment"># 写入  </span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        f.write(frontmatter.dumps(post))  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:  </span><br><span class="line">    <span class="comment"># 替换为实际的文件夹路径和要添加的 Front Matter 数据  </span></span><br><span class="line">    folder_path = <span class="string">&quot;/Users/Documents/notes&quot;</span>  </span><br><span class="line">    pre =<span class="string">&quot;/Users/Documents/&quot;</span>  </span><br><span class="line">    neededFileNameList =  list_all_files(folder_path,[<span class="string">&#x27;attachments&#x27;</span>])  </span><br><span class="line">    <span class="keyword">for</span> filePath <span class="keyword">in</span> neededFileNameList:  </span><br><span class="line">        update_front_matter(filePath,pre)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
 ]]></content>
       <categories>
-        <category>Tools</category>
+        <category>Personal</category>
       </categories>
-      <tags>
-        <tag>jerbel</tag>
-        <tag>热部署</tag>
-      </tags>
   </entry>
   <entry>
     <title>ssh配置</title>
-    <url>/2024/01/15/Tools/ssh%E9%85%8D%E7%BD%AE/</url>
+    <url>/2024/01/16/Tools/ssh%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<blockquote>
 <p>引言: 平时经常会登录远程服务操作。当然一些工具例如windows的xshell，mac里的Terimus都能实现。本文基于本地的终端进行一个简单的配置来实现登录远程服务器。</p>
 </blockquote>
@@ -570,103 +742,6 @@ Next官网的PostSetting处有<a href="https://theme-next.js.org/docs/theme-sett
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p><a href="https://zhuanlan.zhihu.com/p/601630927?utm_id=0">ssh工具搭建</a><br><a href="https://www.cnblogs.com/qinlulu/p/14671345.html">环境变量|Linux环境搭建</a></p>
 </blockquote>
-]]></content>
-      <categories>
-        <category>Tools</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>常用的Docker镜像</title>
-    <url>/2024/01/15/Tools/%E5%B8%B8%E7%94%A8%E7%9A%84Docker%E9%95%9C%E5%83%8F/</url>
-    <content><![CDATA[<blockquote>
-<p>引言: 本文为常用的一些镜像及使用注意点记录。</p>
-</blockquote>
-<span id="more"></span>
-
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#方法一：直接带密码启动</span></span><br><span class="line">docker run -itd --name redis-6379 -p 6379:6379 redis --requirepass <span class="string">&quot;123456&quot;</span></span><br><span class="line">docker run -d --name redis-server -p 6379:6379 redis:6.0.5 --requirepass <span class="string">&quot;diypassword&quot;</span> --appendonly <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：拉取启动容器后</span></span><br><span class="line"><span class="comment">#进入redis的容器</span></span><br><span class="line">docker <span class="built_in">exec</span> -it 容器ID bash</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入redis目录</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/bin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#运行命令：</span></span><br><span class="line">redis-cli</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看现有的redis密码：</span></span><br><span class="line">config get requirepass</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置redis密码</span></span><br><span class="line">config <span class="built_in">set</span> requirepass 密码</span><br><span class="line"></span><br><span class="line"><span class="comment">#必须项</span></span><br><span class="line"><span class="comment">#因为redis设置了密码，我们需要使用密码来进行验证之后再来对redis客户端进行操作，否则我们没有操作redis缓存数据库的权限。</span></span><br><span class="line">auth 密码</span><br><span class="line"></span><br><span class="line"><span class="comment">#清空redis密码</span></span><br><span class="line">config <span class="built_in">set</span> requirepass <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-<h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#直接带密码启动</span></span><br><span class="line">docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql</span><br><span class="line"><span class="comment">#绑定自己的数据卷启动</span></span><br><span class="line">docker run -d -p 3306:3306 -v <span class="variable">$HOME</span>/docker-volume/mysql/conf:/etc/mysql/conf.d -v <span class="variable">$HOME</span>/docker-volume/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root --name mysql01 mysql</span><br><span class="line"><span class="comment">#进入容器内部设置mysql</span></span><br><span class="line">docker <span class="built_in">exec</span> -it mysql /bin/bash</span><br><span class="line">ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED WITH mysql_native_password BY <span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#额外问题-连接报错:java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed</span></span><br><span class="line">- 配置文件连接 url = <span class="string">&quot;jdbc:mysql://localhost:3306/mydatabase?allowPublicKeyRetrieval=true&amp;useSSL=false&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Rabbitmq"><a href="#Rabbitmq" class="headerlink" title="Rabbitmq"></a>Rabbitmq</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#拉取镜像</span></span><br><span class="line">docker pull rabbitmq:management（基于erlang语言环境，此处直接用docker更方便）</span><br><span class="line">docker pull rabbitmq:3.8-management</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建容器并启动</span></span><br><span class="line">docker run -d -p 5672:5672 -p 15672:15672 -p 25672:25672 --name rabbitmq rabbitmq:management</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建容器启动</span></span><br><span class="line">docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8-management</span><br><span class="line"></span><br><span class="line">rabbitmqctl add_user root root</span><br><span class="line">rabbitmqctl set_user_tags root administrator</span><br></pre></td></tr></table></figure>
-
-<p>基本使用:</p>
-<ul>
-<li>在web浏览器中输入地址进行登录：http:&#x2F;&#x2F;虚拟机ip:15672&#x2F;</li>
-<li>输入默认账号: guest  密码:guest<ul>
-<li>添加用户</li>
-<li>创建virtual hosts虚拟主机，类似mysql中的数据库</li>
-<li>设置权限</li>
-</ul>
-</li>
-</ul>
-<h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><ol>
-<li>拉取镜像 <code>sudo docker pull jenkins/jenkins:lts-jdk17@sha256:2d79d87a548ad46472b56e492f652f4b9ece6c447164d83698ae3d5d679d8a22</code><br>拉取后调整一下tag</li>
-<li>启动容器：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> sudo docker run -d -p 8050:8080 \</span><br><span class="line">--user root \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-v /Users/tianmou/docker-volume/jenkins:/var/jenkins_home \</span><br><span class="line">-v /opt/homebrew/Cellar/gradle@6/6.9.4:/usr/local/gradle \</span><br><span class="line">-v /opt/homebrew/Cellar/maven/3.9.5:/usr/local/maven \</span><br><span class="line">-e TZ=Asia/Shanghai \</span><br><span class="line">--name jenkins jenkins/jenkins</span><br></pre></td></tr></table></figure></li>
-<li>修改账户，更换国内下载源<br>Manage Jenkins -&gt; Manage Plugins -&gt; Advanced -&gt; Updatge Site</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>源</th>
-<th>地址</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>tencent</td>
-<td><a href="https://mirrors.cloud.tencent.com/jenkins/plugins/">https://mirrors.cloud.tencent.com/jenkins/plugins/</a></td>
-</tr>
-<tr>
-<td>huawei</td>
-<td><a href="https://mirrors.huaweicloud.com/jenkins/plugins/">https://mirrors.huaweicloud.com/jenkins/plugins/</a></td>
-</tr>
-<tr>
-<td>ustc</td>
-<td><a href="https://mirrors.ustc.edu.cn/jenkins/plugins/">https://mirrors.ustc.edu.cn/jenkins/plugins/</a></td>
-</tr>
-<tr>
-<td>tinghua</td>
-<td><a href="https://mirrors.tuna.tsinghua.edu.cn/jenkins/plugins">https://mirrors.tuna.tsinghua.edu.cn/jenkins/plugins</a></td>
-</tr>
-</tbody></table>
-<ol start="4">
-<li>安装插件</li>
-</ol>
-<ul>
-<li>git，gitee, github</li>
-<li>gradle, maven integration, docker</li>
-<li>Publish Over SSH, ssh agent</li>
-<li>version number</li>
-<li>Localization: Chinese (Simplified)</li>
-</ul>
-<ol start="4">
-<li>配置环境变量，jenkins里的全局变量配置<br>配置maven和gradle环境变量，vim &#x2F;etc&#x2F;profile,追加到文本末尾。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#maven环境变量配置 </span></span><br><span class="line"><span class="built_in">export</span> MAVEN_HOME=/usr/local/maven</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$MAVEN_HOME</span>/libexec/bin </span><br><span class="line"></span><br><span class="line"><span class="comment">#gradle环境变量配置 </span></span><br><span class="line"><span class="built_in">export</span> GEADLE_HOME=/usr/local/gradle</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$GEADLE_HOME</span>/libexec/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#Java环境</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/var/jenkins_home/config/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-ps: 此处因为homebrew安装，因此bin目录前要加上libexec。添加后source一下。</li>
-</ol>
-<p>手动添加maven的setting.xml文件到 jenkins&#x2F;config目录，设置maven配置路径为&#x2F;var&#x2F;jenkins_home&#x2F;config&#x2F;settings.xml。<br>此处拉取的是jdk17，也可以手动配置java环境。</p>
-<p>java环境<br>查看容器架构：<code>docker inspect --format=&#39;&#123;&#123;.Architecture&#125;&#125;&#39; &lt;容器名称或ID&gt;</code><br>下载对应架构的的jdk安装，此处是arm64。配置环境变量到&#x2F;etc&#x2F;profile里，source即可。java -version可以验证。</p>
-<ol start="5">
-<li>可以开始新建项目了</li>
-</ol>
-<ul>
-<li>连接本机需要开启mac 共享-远程登登录<br>构建shell脚本<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">cd</span> /var/lib/jenkins/workspace/<span class="variable">$JOB_NAME</span>/server</span><br><span class="line"><span class="built_in">source</span> /etc/profile <span class="comment">#声明环境变量</span></span><br><span class="line">gradle clean</span><br><span class="line">gradle bootJar  </span><br><span class="line"><span class="built_in">cd</span> ..</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>ssh构建后脚本</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Users/tianmou/abi/backend</span><br><span class="line"><span class="built_in">source</span> /etc/profile <span class="comment"># 不加则会导致docker无法执行，环境变量异常。此命令只保证当前会话有效。</span></span><br><span class="line">./rebuild.sh &gt; output.txt 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<p>rebuild.sh脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/zsh</span><br><span class="line">cd /Users/tianmou/abi/backend</span><br><span class="line"></span><br><span class="line">CONTAINER_NAME=&quot;abi-backend&quot;</span><br><span class="line">IMAGE_NAME=&quot;abi/backend:latest&quot;</span><br><span class="line">DOCKERFILE_PATH=&quot;./dockerfile&quot;</span><br><span class="line">DOCKER_REGISTRY=&quot;localhost:5000/&quot;</span><br><span class="line"></span><br><span class="line"># 检查容器是否在运行</span><br><span class="line">if docker ps -a -f name=$CONTAINER_NAME &gt;/dev/null; then</span><br><span class="line">    # 停止并删除容器</span><br><span class="line">    docker stop $CONTAINER_NAME</span><br><span class="line">    docker rm $CONTAINER_NAME</span><br><span class="line">    echo &quot;已停止并删除容器&quot;</span><br><span class="line">fi</span><br><span class="line"># 检查镜像是否存在</span><br><span class="line">if docker images -q $IMAGE_NAME &gt;/dev/null; then</span><br><span class="line">    # 删除镜像</span><br><span class="line">    docker rmi $IMAGE_NAME</span><br><span class="line">    echo &quot;已删除镜像&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># 检查镜像是否存在</span><br><span class="line">if docker images -q $DOCKER_REGISTRY$IMAGE_NAME &gt;/dev/null; then</span><br><span class="line">    # 删除镜像</span><br><span class="line">    docker rmi $DOCKER_REGISTRY$IMAGE_NAME</span><br><span class="line">    echo &quot;已删除远程镜像&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># 构建 Docker 镜像</span><br><span class="line">docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH .</span><br><span class="line">docker tag $IMAGE_NAME $DOCKER_REGISTRY$IMAGE_NAME</span><br><span class="line">docker push $IMAGE_NAME $DOCKER_REGISTRY$IMAGE_NAME</span><br><span class="line"></span><br><span class="line"># 启动新的容器</span><br><span class="line">docker run -d -p 8300:8081 -v /Users/tianmou/abi/backend/log:/opt/app/log/ -v /Users/tianmou/abi/backend/upload:/opt/app/upload/ --name $CONTAINER_NAME $IMAGE_NAME</span><br><span class="line">echo &quot;已启动新的容器&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>至此，后端部署完成。</p>
-<p><strong>深坑</strong>：用jenkins在ssh上执行sh脚本操作时会出现，jenkins无法识别sh脚本执行完成，导致一直在进行中超时的情况。</p>
-<ul>
-<li>解决办法：<ol>
-<li>在高级选项中选择exec in pty</li>
-<li>在执行脚本上加上nohup。比如：<code> nohup bash ./bin/startup.sh &gt; /dev/null 2&gt;&amp;1 &amp; sleep 1</code>，建议加上sleep 1.</li>
-</ol>
-</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://blog.csdn.net/wsjzzcbq/article/details/116605492">jenkins 执行 shell脚本成功但构建任务一直未结束或超时_jenkins项目没有构建完但是也没有报异常-CSDN博客</a></li>
-<li><a href="https://ost.51cto.com/posts/24887">docker部署jenkins和使用教程-鸿蒙开发者社区-51CTO.COM|docker部署</a></li>
-</ol>
 ]]></content>
       <categories>
         <category>Tools</category>
