@@ -19,25 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":400},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="学而时习之,不亦乐乎">
+    <meta name="description" content="引言: 登录模块的设计到实现。参考">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="My Own Blog">
-<meta property="og:url" content="http://example.com/archives/2024/01/index.html">
+<meta property="og:title" content="技术派项目学习-登录模块">
+<meta property="og:url" content="http://example.com/2024/01/29/Project/PaiCoding/%E6%8A%80%E6%9C%AF%E6%B4%BE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0-%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/index.html">
 <meta property="og:site_name" content="My Own Blog">
-<meta property="og:description" content="学而时习之,不亦乐乎">
+<meta property="og:description" content="引言: 登录模块的设计到实现。参考">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-29T10:53:18.000Z">
+<meta property="article:modified_time" content="2024-01-29T10:53:18.000Z">
 <meta property="article:author" content="Mou Tian">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/archives/2024/01/">
+<link rel="canonical" href="http://example.com/2024/01/29/Project/PaiCoding/%E6%8A%80%E6%9C%AF%E6%B4%BE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0-%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2024/01/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/01/29/Project/PaiCoding/%E6%8A%80%E6%9C%AF%E6%B4%BE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0-%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/","path":"2024/01/29/Project/PaiCoding/技术派项目学习-登录模块/","title":"技术派项目学习-登录模块"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>归档 | My Own Blog</title>
+<title>技术派项目学习-登录模块 | My Own Blog</title>
   
 
 
@@ -70,7 +72,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">My Own Blog</h1>
+      <p class="site-title">My Own Blog</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">subtitle</p>
@@ -124,7 +126,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -137,6 +139,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1"><span class="nav-text">方案设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="nav-text">登录技术选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-text">具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3"><span class="nav-text">登录接口</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -201,232 +204,171 @@
 
     </div>
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 11 篇日志。 继续努力。</span>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/29/Project/PaiCoding/%E6%8A%80%E6%9C%AF%E6%B4%BE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0-%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Mou Tian">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Own Blog">
+      <meta itemprop="description" content="学而时习之,不亦乐乎">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="技术派项目学习-登录模块 | My Own Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          技术派项目学习-登录模块
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-01-29 18:53:18" itemprop="dateCreated datePublished" datetime="2024-01-29T18:53:18+08:00">2024-01-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/PaiCoding/" itemprop="url" rel="index"><span itemprop="name">PaiCoding</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>370</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>引言: 登录模块的设计到实现。<a target="_blank" rel="noopener" href="https://paicoding.com/article/detail/448">参考</a></p>
+</blockquote>
+<span id="more"></span>
+<h1 id="方案设计"><a href="#方案设计" class="headerlink" title="方案设计"></a>方案设计</h1><p>基本流程：</p>
+<ol>
+<li><strong>需求相关理解及目标</strong></li>
+<li><strong>研发的设计方案</strong></li>
+<li>相对完整的设计方案</li>
+<li>前后端交互方式、接口API约定</li>
+<li>测试要点</li>
+<li>排期</li>
+<li>验收标准</li>
+<li>上线计划</li>
+</ol>
+<h2 id="登录技术选型"><a href="#登录技术选型" class="headerlink" title="登录技术选型"></a>登录技术选型</h2><table>
+<thead>
+<tr>
+<th>登录方式</th>
+<th>考量</th>
+<th>注意事项</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户名+密码</td>
+<td>账号,密码，email&#x2F;phone用来忘记密码重置操作</td>
+<td>不明文存储密码</td>
+<td>注册成本低；流程清晰简单</td>
+<td>接口多，流程多(注册，修改，忘记密码等)<br> 忘记密码后的安全性，手机验证码需要花钱，邮件发送容易拉黑</td>
+</tr>
+<tr>
+<td>手机&#x2F;邮箱+验证码</td>
+<td></td>
+<td></td>
+<td>无需担心忘记密码，操作简单</td>
+<td>流程分段，时间较长；邮件接收验证码对用户体验不好</td>
+</tr>
+<tr>
+<td>扫码登录</td>
+<td></td>
+<td></td>
+<td>登录方式简单，成本低</td>
+<td>实现较为麻烦，需要注册app实现app识别身份</td>
+</tr>
+<tr>
+<td>微信公众号登录</td>
+<td>基于扫码登录，用微信公众号来验证用户信息</td>
+<td></td>
+<td>有微信即可，无需忘记密码用户名</td>
+<td>实现较为复杂，个人公众号需要输入验证码</td>
+</tr>
+</tbody></table>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="登录接口"><a href="#登录接口" class="headerlink" title="登录接口"></a>登录接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**  </span></span><br><span class="line"><span class="comment"> * 客户端与后端建立扫描二维码的长连接  </span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="meta">@MdcDot</span>  </span><br><span class="line"><span class="meta">@ResponseBody</span>  </span><br><span class="line"><span class="meta">@GetMapping(path = &quot;subscribe&quot;, produces = &#123;org.springframework.http.MediaType.TEXT_EVENT_STREAM_VALUE&#125;)</span>  </span><br><span class="line"><span class="keyword">public</span> SseEmitter <span class="title function_">subscribe</span><span class="params">(String deviceId)</span> <span class="keyword">throws</span> IOException &#123;  </span><br><span class="line">    <span class="keyword">return</span> qrLoginHelper.subscribe();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>其中有个@MdDot注解，看一下干了什么</li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-29T18:53:18+08:00"
-              content="2024-01-29">
-          01-29
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/29/Project/PaiCoding/%E6%8A%80%E6%9C%AF%E6%B4%BE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0-%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/" itemprop="url">
-          <span itemprop="name">技术派项目学习-登录模块</span>
-        </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/01/29/Project/PaiCoding/%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E6%9E%84%E5%BB%BA/" rel="prev" title="技术派项目学习-项目构建">
+                  <i class="fa fa-angle-left"></i> 技术派项目学习-项目构建
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-29T18:53:14+08:00"
-              content="2024-01-29">
-          01-29
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/29/Project/PaiCoding/%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E6%9E%84%E5%BB%BA/" itemprop="url">
-          <span itemprop="name">技术派项目学习-项目构建</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-26T11:37:39+08:00"
-              content="2024-01-26">
-          01-26
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/26/Tools/gradle/" itemprop="url">
-          <span itemprop="name">gradle</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-23T15:30:48+08:00"
-              content="2024-01-23">
-          01-23
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/23/Project/PaiCoding/%E6%8A%80%E6%9C%AF%E6%B4%BE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0-%E6%95%B4%E4%BD%93%E6%A6%82%E8%A6%81/" itemprop="url">
-          <span itemprop="name">技术派项目学习-整体概要</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-16T18:51:50+08:00"
-              content="2024-01-16">
-          01-16
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/16/Tools/Jetbrains%E7%B3%BB%E5%88%97/" itemprop="url">
-          <span itemprop="name">Jetbrains系列</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-16T18:51:07+08:00"
-              content="2024-01-16">
-          01-16
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/16/Personal/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" itemprop="url">
-          <span itemprop="name">搭建个人博客</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-16T18:51:07+08:00"
-              content="2024-01-16">
-          01-16
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/16/Component/Logback/" itemprop="url">
-          <span itemprop="name">Logback</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-16T18:51:07+08:00"
-              content="2024-01-16">
-          01-16
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/16/Tools/Docker/" itemprop="url">
-          <span itemprop="name">Docker</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-16T18:51:07+08:00"
-              content="2024-01-16">
-          01-16
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/16/Tools/Homebrew+iterm2+Oh-my-zsh/" itemprop="url">
-          <span itemprop="name">Homebrew+iterm2+Oh-my-zsh</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-16T18:51:07+08:00"
-              content="2024-01-16">
-          01-16
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/01/16/Tools/ssh%E9%85%8D%E7%BD%AE/" itemprop="url">
-          <span itemprop="name">ssh配置</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2024/01/page/2/">2</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/archives/2024/01/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+
+
+
 
 </div>
   </main>
